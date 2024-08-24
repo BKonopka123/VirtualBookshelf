@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.virtualbookshelf.R;
+import com.example.virtualbookshelf.model.db.DBManager;
 import com.example.virtualbookshelf.viewmodel.UserViewModel;
 
 public class UserActivity extends AppCompatActivity {
@@ -24,6 +25,7 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        DBManager dbManager = userViewModel.getDbManager();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.user), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

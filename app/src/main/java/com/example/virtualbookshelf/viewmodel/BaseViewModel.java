@@ -1,6 +1,7 @@
 package com.example.virtualbookshelf.viewmodel;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.LiveData;
@@ -18,6 +19,16 @@ public class BaseViewModel extends AndroidViewModel {
         super(application);
         dbManager = new DBManager(application);
         dbManager.open();
+        SharedPreferences sharedPreferences = application.getSharedPreferences("MyAppPreferences", Application.MODE_PRIVATE);
+        boolean isDataMocked = sharedPreferences.getBoolean("isDataMocked", false);
+
+        if (!isDataMocked) {
+            dbManager.MockData();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("isDataMocked", true);
+            editor.apply();
+        }
+
     }
 
     public DBManager getDbManager() {

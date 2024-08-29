@@ -19,7 +19,6 @@ public class DBManager {
 
     public void open() {
         database = dbHelper.getWritableDatabase();
-        database.execSQL("PRAGMA foreign_keys=ON;");
     }
 
     public void close() {
@@ -134,23 +133,28 @@ public class DBManager {
     }
 
     public void MockData() {
-        Cursor cursor = database.rawQuery("SELECT * FROM User LIMIT 1", null);
+        Cursor cursor = database.rawQuery("SELECT * FROM Book LIMIT 1", null);
         if (cursor.getCount() == 0) {
-            User user = new User(1, "user1", new byte[0], 0, 0, 0, 0, 0);
-            insertUser(user);
-            Photo photo1 = new Photo(1, 3, new byte[0], "2023-05-01");
+
+//            Cursor cursor1 = database.rawQuery("SELECT * FROM User LIMIT 1", null);
+            //pobrać usera o id = 1 selectem
+            //stworzyć nowego usera z informacjami z usera o id = 1 i nadpisac dane o ksiazakch
+            //user update
+//            cursor1.close();
+
+            Photo photo1 = new Photo(1, 3, new byte[0], "2024-08-25");
             insertPhoto(photo1);
-            Photo photo2 = new Photo(2, 2, new byte[0], "2023-05-02");
+            Photo photo2 = new Photo(2, 2, new byte[0], "2024-08-25");
             insertPhoto(photo2);
-            Book book1 = new Book(1, 1, 1, "Book 1", "Author 1", new byte[0], "Description 1", "Genre 1", "2023-05-01", "Link 1", "Status 1", "aaa", true);
+            Book book1 = new Book(1, 1, 1, "Book 1", "Author 1", new byte[0], "Description 1", "Genre 1", "2023-05-01", "Link 1", "Read", "aaa", true);
             insertBook(book1);
-            Book book2 = new Book(2, 1, 1, "Book 2", "Author 2", new byte[0], "Description 2", "Genre 2", "2023-05-02", "Link 2", "Status 2", "bbb", true);
+            Book book2 = new Book(2, 1, 1, "Book 2", "Author 2", new byte[0], "Description 2", "Genre 1", "2023-05-02", "Link 2", "Read", "bbb", false);
             insertBook(book2);
-            Book book3 = new Book(3, 1, 1, "Book 3", "Author 3", new byte[0], "Description 3", "Genre 3", "2023-05-03", "Link 3", "Status 3", "ccc", true);
+            Book book3 = new Book(3, 1, 1, "Book 3", "Author 3", new byte[0], "Description 3", "Genre 2", "2023-05-03", "Link 3", "Unread", "ccc", true);
             insertBook(book3);
-            Book book4 = new Book(4, 2, 1, "Book 4", "Author 4", new byte[0], "Description 4", "Genre 4", "2023-05-04", "Link 4", "Status 4", "ddd", true);
+            Book book4 = new Book(4, 2, 1, "Book 4", "Author 4", new byte[0], "Description 4", "Genre 2", "2023-05-04", "Link 4", "Currently", "ddd", true);
             insertBook(book4);
-            Book book5 = new Book(5, 2, 1, "Book 5", "Author 5", new byte[0], "Description 5", "Genre 5", "2023-05-05", "Link 5", "Status 5", "eee", true);
+            Book book5 = new Book(5, 2, 1, "Book 5", "Author 5", new byte[0], "Description 5", "Genre 3", "2023-05-05", "Link 5", "Queue", "eee", true);
             insertBook(book5);
         }
         cursor.close();

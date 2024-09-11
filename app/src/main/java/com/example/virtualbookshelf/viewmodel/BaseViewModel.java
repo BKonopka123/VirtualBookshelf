@@ -47,8 +47,7 @@ public class BaseViewModel extends AndroidViewModel {
     public void onBookshelfButtonClicked() {
         navigateToBookshelf.setValue(true);
     }
-    public void onUserButtonClicked() { navigateToUser.setValue(true );
-    }
+    public void onUserButtonClicked() { navigateToUser.setValue(true );}
 
     public LiveData<Boolean> getNavigateToMain() {
         return navigateToMain;

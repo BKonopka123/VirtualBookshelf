@@ -36,7 +36,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String creteTableUser = "CREATE TABLE User (" +
                 "User_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Username TEXT NOT NULL," +
-                "Prfile_photo BLOB NOT NULL," +
+                "Profile_photo BLOB NOT NULL," +
                 "Books_number INTEGER NOT NULL," +
                 "Books_read_number INTEGER NOT NULL," +
                 "Books_unread_number INTEGER NOT NULL," +

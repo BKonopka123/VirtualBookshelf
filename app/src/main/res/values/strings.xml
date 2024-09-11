@@ -3,4 +3,13 @@
     <string name="bookshelf_icon">Bookshelf Icon</string>
     <string name="camera_icon">Camera Icon</string>
     <string name="user_icon">User Icon</string>
+    <string name="edit_profile_image_icon">Edit profile image</string>
+    <string name="username">username</string>
+    <string name="edit_username_icon">Edit username</string>
+    <string name="User_all_book_number">All books: 0</string>
+    <string name="User_read_book_number">Read books: 0</string>
+    <string name="User_unread_book_number">Unread books: 0</string>
+    <string name="User_currently_book_number">Books currently being read: 0</string>
+    <string name="User_queue_book_number">Books in queue: 0</string>
+    <string name="User_delete_database">Delete Database</string>
 </resources>

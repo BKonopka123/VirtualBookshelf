@@ -34,6 +34,12 @@ public class UserActivity extends AppCompatActivity {
     private UserViewModel userViewModel;
     private ImageView profileImage_user;
     private TextView username_user;
+    private TextView allBooks_user;
+    private TextView readBooks_user;
+    private TextView unreadBooks_user;
+    private TextView currentlyBooks_user;
+    private TextView queueBooks_user;
+
     private ActivityResultLauncher<Intent> pickImageLauncher;
 
     @SuppressLint("IntentReset")
@@ -51,6 +57,7 @@ public class UserActivity extends AppCompatActivity {
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         DBManager dbManager = userViewModel.getDbManager();
+        userViewModel.refreshUserData();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.user), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -104,9 +111,26 @@ public class UserActivity extends AppCompatActivity {
             if (user != null && user.getProfilePhoto() != null) {
                 profileImage_user = findViewById(R.id.profileImage_user);
                 username_user = findViewById(R.id.usernameText_user);
+                allBooks_user = findViewById(R.id.allBooks_user);
+                readBooks_user = findViewById(R.id.readBooks_user);
+                unreadBooks_user = findViewById(R.id.unreadBooks_user);
+                currentlyBooks_user = findViewById(R.id.currentlyReadingBooks_user);
+                queueBooks_user = findViewById(R.id.queueBooks_user);
+
                 Bitmap bitmap = BlobManager.getBitmapFromBlob(user.getProfilePhoto());
                 profileImage_user.setImageBitmap(bitmap);
                 username_user.setText(user.getUsername());
+
+                String allBooks_user_text = "All Books: " + user.getBooksNumber();
+                allBooks_user.setText(allBooks_user_text);
+                String readBooks_user_text = "Read Books: " + user.getBooksReadNumber();
+                readBooks_user.setText(readBooks_user_text);
+                String unreadBooks_user_text = "Unread Books: " + user.getBooksUnreadNumber();
+                unreadBooks_user.setText(unreadBooks_user_text);
+                String currentlyBooks_user_text = "Books currently being read: " + user.getBooksCurrentlyNumber();
+                currentlyBooks_user.setText(currentlyBooks_user_text);
+                String queueBooks_user_text = "Books in queue: " + user.getBooksQueueNumber();
+                queueBooks_user.setText(queueBooks_user_text);
             }
         });
 

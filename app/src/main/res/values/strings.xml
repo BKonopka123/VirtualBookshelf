@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VirtualBookshelf</string>
+    <string name="app_name">Virtual Bookshelf</string>
     <string name="bookshelf_icon">Bookshelf Icon</string>
     <string name="camera_icon">Camera Icon</string>
     <string name="user_icon">User Icon</string>
@@ -15,4 +15,6 @@
     <string name="new_username">new username</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
+    <string name="Database_delete_question">Are you sure, you want to delete database?</string>
+    <string name="Database_delete_question_lower">(You will lose all your data)</string>
 </resources>

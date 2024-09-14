@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/databaseDeleteDialog"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/rounded_dialog_background"
+    android:gravity="center"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/text_databaseDelete_title_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:fontFamily="@font/neuton_regular"
+        android:paddingStart="10dp"
+        android:text="@string/Database_delete_question"
+        android:textAlignment="center"
+        android:textColor="#E57373"
+        android:textSize="25sp"
+        tools:ignore="RelativeOverlap,RtlSymmetry,TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/text_databaseDelete_bottom_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/neuton_regular"
+        android:paddingStart="10dp"
+        android:text="@string/Database_delete_question_lower"
+        android:textAlignment="center"
+        android:textColor="#E57373"
+        android:textSize="20sp"
+        tools:ignore="RelativeOverlap,RtlSymmetry,TextContrastCheck" />
+
+
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="2">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/databaseDeleteConfirmButton"
+            android:fontFamily="@font/neuton_regular"
+            android:background="@drawable/rounded_button_background"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:text="@string/confirm"
+            android:textColor="#E57373"
+            tools:ignore="TextContrastCheck" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/databaseDeleteCancelButton"
+            android:fontFamily="@font/neuton_regular"
+            android:background="@drawable/rounded_button_background"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/cancel"
+            android:textColor="#B58373"
+            tools:ignore="TextContrastCheck" />
+    </LinearLayout>
+</LinearLayout>

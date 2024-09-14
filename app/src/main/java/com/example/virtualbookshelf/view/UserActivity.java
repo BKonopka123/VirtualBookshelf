@@ -168,5 +168,12 @@ public class UserActivity extends AppCompatActivity {
             UsernameChangeDialog dialog = new UsernameChangeDialog(userViewModel, dbManager);
             dialog.show(getSupportFragmentManager(), "UsernameChangeDialog");
         });
+
+        //-------------------------------------------------Deleting database
+        findViewById(R.id.deleteDatabase_user).setOnClickListener(delete -> {
+            DatabaseDeleteDialog dialog = new DatabaseDeleteDialog(userViewModel, dbManager);
+            dialog.show(getSupportFragmentManager(), "DeleteDatabaseDialog");
+        });
     }
 }
+

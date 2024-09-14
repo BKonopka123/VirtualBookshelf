@@ -29,6 +29,8 @@ public class DBManager {
         dbHelper.close();
     }
 
+    public void reset() { dbHelper.onUpgrade(database, 1, 1); }
+
     public void insertUser(User user) {
         ContentValues values = new ContentValues();
         values.put("Username", user.getUsername());
@@ -151,7 +153,7 @@ public class DBManager {
         database.delete("Photo", "Photo_id = ?", new String[]{String.valueOf(photo.getId())});
     }
 
-    public void MockData() {
+    public void mockData() {
         Cursor cursor = database.rawQuery("SELECT * FROM Book LIMIT 1", null);
         if (cursor.getCount() == 0) {
 

@@ -23,7 +23,7 @@ public class BaseViewModel extends AndroidViewModel {
         boolean isDataMocked = sharedPreferences.getBoolean("isDataMocked", false);
 
         if (!isDataMocked) {
-            dbManager.MockData();
+            dbManager.mockData();  // TODO: DELETE
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("isDataMocked", true);
             editor.apply();

@@ -12,4 +12,7 @@
     <string name="User_currently_book_number">Books currently being read: 0</string>
     <string name="User_queue_book_number">Books in queue: 0</string>
     <string name="User_delete_database">Delete Database</string>
+    <string name="new_username">new username</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 </resources>

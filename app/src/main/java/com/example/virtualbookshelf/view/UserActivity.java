@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.ImageView;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -32,6 +33,7 @@ public class UserActivity extends AppCompatActivity {
 
     private UserViewModel userViewModel;
     private ImageView profileImage_user;
+    private TextView username_user;
     private ActivityResultLauncher<Intent> pickImageLauncher;
 
     @SuppressLint("IntentReset")
@@ -97,16 +99,18 @@ public class UserActivity extends AppCompatActivity {
             }
         });
 
-        //-------------------------------------------------Live Updating User Profile Photo
+        //-------------------------------------------------Live Updating User
         userViewModel.getUser().observe(this, user -> {
             if (user != null && user.getProfilePhoto() != null) {
                 profileImage_user = findViewById(R.id.profileImage_user);
+                username_user = findViewById(R.id.usernameText_user);
                 Bitmap bitmap = BlobManager.getBitmapFromBlob(user.getProfilePhoto());
                 profileImage_user.setImageBitmap(bitmap);
+                username_user.setText(user.getUsername());
             }
         });
 
-        //-------------------------------------------------Button click updating profile photo
+        //-------------------------------------------------Updating profile Photo
         findViewById(R.id.editProfileImage_user).setOnClickListener(v -> openGallery());
 
         pickImageLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -133,6 +137,12 @@ public class UserActivity extends AppCompatActivity {
                     Log.e("ImageError", "Error getting image", e);
                 }
             }
+        });
+
+        //-------------------------------------------------Updating username
+        findViewById(R.id.editUsername_user).setOnClickListener(update -> {
+            UsernameChangeDialog dialog = new UsernameChangeDialog(userViewModel, dbManager);
+            dialog.show(getSupportFragmentManager(), "UsernameChangeDialog");
         });
     }
 }

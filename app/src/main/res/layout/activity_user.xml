@@ -17,6 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- Logo button with navigation to main activity -->
         <ImageButton
             android:id="@+id/mainButton_user"
             android:layout_width="32dp"
@@ -29,6 +30,7 @@
             android:src="@drawable/ic_bookshelf"
             tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck,TouchTargetSizeCheck" />
 
+        <!-- App name -->
         <TextView
             android:id="@+id/text_title_user"
             android:layout_width="wrap_content"
@@ -43,6 +45,7 @@
             android:textSize="25sp"
             tools:ignore="RelativeOverlap,RtlSymmetry,TextContrastCheck" />
 
+        <!-- Logo button with navigation to user activity -->
         <ImageButton
             android:id="@+id/userButton_user"
             android:layout_width="32dp"
@@ -81,6 +84,7 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp">
 
+                <!-- Profile photo image view -->
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/profileImage_user"
                     android:layout_width="200dp"
@@ -89,6 +93,7 @@
                     android:src="@drawable/ic_user_start"
                     app:shapeAppearanceOverlay="@style/Circular"/>
 
+                <!-- Edit profile photo button -->
                 <ImageButton
                     android:id="@+id/editProfileImage_user"
                     android:layout_width="24dp"
@@ -109,6 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp">
 
+                <!-- Username text -->
                 <TextView
                     android:id="@+id/usernameText_user"
                     android:fontFamily="@font/neuton_regular"
@@ -124,6 +130,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="TextContrastCheck" />
 
+                <!-- Edit username button -->
                 <ImageButton
                     android:id="@+id/editUsername_user"
                     android:layout_width="24dp"
@@ -143,6 +150,7 @@
 
 
             <!-- Books statistics -->
+            <!-- All books -->
             <TextView
                 android:id="@+id/allBooks_user"
                 android:fontFamily="@font/neuton_regular"
@@ -154,6 +162,7 @@
                 android:textSize="18sp"
                 tools:ignore="TextContrastCheck" />
 
+            <!-- Read books -->
             <TextView
                 android:id="@+id/readBooks_user"
                 android:fontFamily="@font/neuton_regular"
@@ -164,6 +173,7 @@
                 android:textSize="18sp"
                 tools:ignore="TextContrastCheck" />
 
+            <!-- Unread books -->
             <TextView
                 android:id="@+id/unreadBooks_user"
                 android:fontFamily="@font/neuton_regular"
@@ -174,6 +184,7 @@
                 android:textSize="18sp"
                 tools:ignore="TextContrastCheck" />
 
+            <!-- Currently reading books -->
             <TextView
                 android:id="@+id/currentlyReadingBooks_user"
                 android:fontFamily="@font/neuton_regular"
@@ -184,6 +195,7 @@
                 android:textSize="18sp"
                 tools:ignore="TextContrastCheck" />
 
+            <!-- Queue books -->
             <TextView
                 android:id="@+id/queueBooks_user"
                 android:fontFamily="@font/neuton_regular"
@@ -220,6 +232,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- Logo button with navigation to main activity -->
         <ImageButton
             android:id="@+id/cameraButton_user"
             android:layout_width="0dp"
@@ -233,6 +246,7 @@
             app:tint="#BA8B7C"
             tools:ignore="ImageContrastCheck" />
 
+        <!-- Logo button with navigation to bookshelf activity -->
         <ImageButton
             android:id="@+id/bookshelfButton_user"
             android:layout_width="0dp"

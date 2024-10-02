@@ -1,15 +1,39 @@
 package com.example.virtualbookshelf.model;
 
+/**
+ * A class describing a user.
+ */
 public class User {
+
+    /** User id */
     Integer id;
+    /** User name */
     String username;
+    /** User profile photo */
     byte[] profilePhoto;
+    /** Number of books owned by user */
     Integer booksNumber;
+    /** Number of books read by user */
     Integer booksReadNumber;
+    /** Number of books unread by user */
     Integer booksUnreadNumber;
+    /** Number of books currently being read by user */
     Integer booksCurrentlyNumber;
+    /** Number of books in the queue */
     Integer booksQueueNumber;
 
+    /**
+     * Constructor.
+     *
+     * @param id User id.
+     * @param username User name.
+     * @param profilePhoto User profile photo.
+     * @param booksNumber Number of books owned by user.
+     * @param booksReadNumber Number of books read by user.
+     * @param booksUnreadNumber Number of books unread by user.
+     * @param booksCurrentlyNumber Number of books currently being read by user.
+     * @param booksQueueNumber Number of books in the queue.
+     */
     public User(Integer id, String username, byte[] profilePhoto, Integer booksNumber, Integer booksReadNumber, Integer booksUnreadNumber, Integer booksCurrentlyNumber, Integer booksQueueNumber) {
         this.id = id;
         this.username = username;
@@ -21,6 +45,7 @@ public class User {
         this.booksQueueNumber = booksQueueNumber;
     }
 
+    /** Getters and setters */
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
     public String getUsername() { return username; }

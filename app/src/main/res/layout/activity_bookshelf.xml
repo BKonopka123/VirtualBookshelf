@@ -18,6 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- Logo button with navigation to main activity -->
         <ImageButton
             android:id="@+id/mainButton_bookshelf"
             android:layout_width="32dp"
@@ -30,6 +31,7 @@
             android:src="@drawable/ic_bookshelf"
             tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck,TouchTargetSizeCheck" />
 
+        <!-- App name -->
         <TextView
             android:id="@+id/text_title_bookshelf"
             android:layout_width="wrap_content"
@@ -44,6 +46,7 @@
             android:textSize="25sp"
             tools:ignore="RelativeOverlap,RtlSymmetry,TextContrastCheck" />
 
+        <!-- Logo button with navigation to user activity -->
         <ImageButton
             android:id="@+id/userButton_bookshelf"
             android:layout_width="32dp"
@@ -97,29 +100,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- Logo button with navigation to main activity -->
         <ImageButton
             android:id="@+id/cameraButton_bookshelf"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/camera_icon"
             android:padding="16dp"
             android:scaleType="fitCenter"
-            android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_camera"
-            app:tint="#BA8B7C" />
+            app:tint="#BA8B7C"
+            tools:ignore="ImageContrastCheck" />
 
+        <!-- Logo button with navigation to bookshelf activity -->
         <ImageButton
             android:id="@+id/bookshelfButton_bookshelf"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/bookshelf_icon"
             android:padding="16dp"
             android:scaleType="fitCenter"
-            android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_bookshelf"
-            app:tint="#BA8B7C" />
+            app:tint="#BA8B7C"
+            tools:ignore="ImageContrastCheck" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

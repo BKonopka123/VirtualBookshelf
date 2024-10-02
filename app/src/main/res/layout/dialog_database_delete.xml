@@ -9,6 +9,7 @@
     android:gravity="center"
     android:padding="24dp">
 
+    <!-- Main information -->
     <TextView
         android:id="@+id/text_databaseDelete_title_user"
         android:layout_width="wrap_content"
@@ -22,6 +23,7 @@
         android:textSize="25sp"
         tools:ignore="RelativeOverlap,RtlSymmetry,TextContrastCheck" />
 
+    <!-- Second information -->
     <TextView
         android:id="@+id/text_databaseDelete_bottom_user"
         android:layout_width="wrap_content"
@@ -36,7 +38,7 @@
         tools:ignore="RelativeOverlap,RtlSymmetry,TextContrastCheck" />
 
 
-
+    <!-- Buttons -->
     <LinearLayout
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
@@ -45,6 +47,7 @@
         android:gravity="center"
         android:weightSum="2">
 
+        <!-- Confirm button -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/databaseDeleteConfirmButton"
             android:fontFamily="@font/neuton_regular"
@@ -57,6 +60,7 @@
             android:textColor="#E57373"
             tools:ignore="TextContrastCheck" />
 
+        <!-- Cancel button -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/databaseDeleteCancelButton"
             android:fontFamily="@font/neuton_regular"

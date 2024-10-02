@@ -9,6 +9,7 @@
     android:gravity="center"
     android:padding="24dp">
 
+    <!-- Place to insert new username -->
     <EditText
         android:id="@+id/usernameEditText"
         android:fontFamily="@font/neuton_regular"
@@ -25,6 +26,7 @@
         android:textColor="#B58373"
         tools:ignore="TextContrastCheck" />
 
+    <!-- Buttons -->
     <LinearLayout
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
@@ -33,6 +35,7 @@
         android:gravity="center"
         android:weightSum="2">
 
+        <!-- Confirm button -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/usernameConfirmButton"
             android:fontFamily="@font/neuton_regular"
@@ -45,6 +48,7 @@
             android:textColor="#B58373"
             tools:ignore="TextContrastCheck" />
 
+        <!-- Cancel button -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/usernameCancelButton"
             android:fontFamily="@font/neuton_regular"

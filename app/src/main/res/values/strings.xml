@@ -17,4 +17,14 @@
     <string name="cancel">Cancel</string>
     <string name="Database_delete_question">Are you sure, you want to delete database?</string>
     <string name="Database_delete_question_lower">(You will lose all your data)</string>
+    <string name="go_back_to_main_activity">Go back to main activity</string>
+    <string name="taken_photos_history">Taken photos history</string>
+    <string name="take_a_photo">Take a photo!</string>
+    <string name="history">history</string>
+    <string name="taken_photo">Taken photo:</string>
+    <string name="taken_image">taken image</string>
+    <string name="process_image">Process image</string>
+    <string name="could_not_load_image">Could not load image :(</string>
+    <string name="open_camera_and_take_a_photo">Open camera and take a photo!</string>
+    <string name="found_books">Found books:</string>
 </resources>

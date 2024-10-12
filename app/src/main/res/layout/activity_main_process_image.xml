@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/main_photo_history"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MainActivity">
+    tools:context=".view.MainProcessImageActivity">
 
     <!-- Upper part -->
     <RelativeLayout
-        android:id="@+id/upperLayout_main"
+        android:id="@+id/upperLayout_main_process_image"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="#F4D9C8"
@@ -20,7 +20,7 @@
 
         <!-- Logo button with navigation to main activity -->
         <ImageButton
-            android:id="@+id/mainButton_main"
+            android:id="@+id/mainButton_main_process_image"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_alignParentStart="true"
@@ -33,11 +33,11 @@
 
         <!-- App name -->
         <TextView
-            android:id="@+id/text_title_main"
+            android:id="@+id/text_title_main_process_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
-            android:layout_toEndOf="@+id/mainButton_main"
+            android:layout_toEndOf="@+id/mainButton_main_process_image"
             android:fontFamily="@font/neuton_regular"
             android:paddingStart="8dp"
             android:layout_centerVertical="true"
@@ -48,7 +48,7 @@
 
         <!-- Logo button with navigation to user activity -->
         <ImageButton
-            android:id="@+id/userButton_main"
+            android:id="@+id/userButton_main_process_image"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_alignParentEnd="true"
@@ -63,13 +63,13 @@
 
     <!-- Middle Part -->
     <LinearLayout
-        android:id="@+id/middleLayout_main"
+        android:id="@+id/middleLayout_main_process_image"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#FFF6F2"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/upperLayout_main"
-        app:layout_constraintBottom_toTopOf="@id/bottomLayout_main"
+        app:layout_constraintTop_toBottomOf="@id/upperLayout_main_process_image"
+        app:layout_constraintBottom_toTopOf="@id/bottomLayout_main_process_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:fillViewport="true">
@@ -80,7 +80,7 @@
 
             <!-- Information text -->
             <TextView
-                android:id="@+id/text_Info_main"
+                android:id="@+id/text_Info_main_process_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -90,24 +90,25 @@
                 android:fontFamily="@font/neuton_regular"
                 android:paddingStart="8dp"
                 android:layout_centerVertical="true"
-                android:text="@string/take_a_photo"
+                android:text="@string/taken_photo"
                 android:textColor="#BA8B7C"
                 android:textSize="20sp"
                 tools:ignore="RelativeOverlap,RtlSymmetry,TextContrastCheck" />
 
-<!--            &lt;!&ndash; History button &ndash;&gt;-->
-<!--            <androidx.appcompat.widget.AppCompatButton-->
-<!--                android:id="@+id/history_button_main"-->
-<!--                android:layout_width="90dp"-->
-<!--                android:layout_height="26dp"-->
-<!--                android:layout_alignParentTop="true"-->
-<!--                android:layout_alignParentEnd="true"-->
-<!--                android:layout_margin="12dp"-->
-<!--                android:background="@drawable/rounded_button_background"-->
-<!--                android:fontFamily="@font/neuton_regular"-->
-<!--                android:text="@string/history"-->
-<!--                android:textColor="#BA8B7C"-->
-<!--                tools:ignore="TextContrastCheck,TouchTargetSizeCheck,TextSizeCheck" />-->
+            <!-- Go back button -->
+            <ImageButton
+                android:id="@+id/backButton_main_process_image"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="12dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/go_back_to_main_activity"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_button_back"
+                app:tint="#BA8B7C"
+                tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
 
         </RelativeLayout>
 
@@ -115,41 +116,52 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!-- Take photo text -->
+            <!-- Found Image -->
+            <ImageView
+                android:id="@+id/image_main_process_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="84dp"
+                android:contentDescription="@string/taken_image"
+                android:visibility="visible"/>
+
+            <!-- No Image Information -->
             <TextView
+                android:id="@+id/text_noPhoto_main_process_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/open_camera_and_take_a_photo"
+                android:text="@string/could_not_load_image"
                 android:textColor="#BA8B7C"
-                android:textSize="40sp"
-                android:textAlignment="center"
+                android:textSize="20sp"
                 android:fontFamily="@font/neuton_regular"
                 android:layout_centerHorizontal="true"
-                android:layout_above="@+id/takePhotoButton_main"
-                android:layout_marginBottom="100dp" />
+                android:layout_marginTop="24dp"
+                android:visibility="gone"/>
 
-            <!-- Take photo button -->
-            <ImageButton
-                android:id="@+id/takePhotoButton_main"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
+            <!-- Process Button -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/process_button_main_process_image"
+                android:layout_width="160dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/image_main_process_image"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="-66dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/take_a_photo"
-                android:scaleType="fitXY"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_camera"
-                app:tint="#BA8B7C"
-                tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
-
+                android:background="@drawable/rounded_button_background"
+                android:fontFamily="@font/neuton_regular"
+                android:text="@string/process_image"
+                android:textColor="#BA8B7C"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck,TextSizeCheck" />
         </RelativeLayout>
+
 
     </LinearLayout>
 
     <!-- Lower part -->
     <LinearLayout
-        android:id="@+id/bottomLayout_main"
+        android:id="@+id/bottomLayout_main_process_image"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:orientation="horizontal"
@@ -160,7 +172,7 @@
 
         <!-- Logo button with navigation to main activity -->
         <ImageButton
-            android:id="@+id/cameraButton_main"
+            android:id="@+id/cameraButton_main_process_image"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -174,7 +186,7 @@
 
         <!-- Logo button with navigation to bookshelf activity -->
         <ImageButton
-            android:id="@+id/bookshelfButton_main"
+            android:id="@+id/bookshelfButton_main_process_image"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

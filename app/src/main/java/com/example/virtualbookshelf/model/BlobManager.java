@@ -97,7 +97,10 @@ public class BlobManager {
      * @return Bitmap object.
      */
     public static Bitmap getBitmapFromBlob(byte[] blob) {
-        return BitmapFactory.decodeByteArray(blob, 0, blob.length);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(blob, 0, blob.length);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
+        return bitmap;
     }
 
     /**
@@ -154,6 +157,31 @@ public class BlobManager {
             return image;
         } catch (Exception e) {
             Log.e("ImageError", "Error rotating image - " + e.getMessage(), e);
+            return null;
+        }
+    }
+
+    /**
+     * Resize image.
+     *
+     * @param original Original image.
+     * @param maxWidth Max width of new image.
+     * @param maxHeight Max height of new image.
+     * @return New resized image.
+     */
+    public static Bitmap resizeImage(Bitmap original, int maxWidth, int maxHeight){
+        try {
+            int originalWidth = original.getWidth();
+            int originalHeight = original.getHeight();
+
+            float scale = Math.min((float) maxWidth / originalWidth, (float) maxHeight / originalHeight);
+
+            int newWidth = Math.round(originalWidth * scale);
+            int newHeight = Math.round(originalHeight * scale);
+
+            return Bitmap.createScaledBitmap(original, newWidth, newHeight, true);
+        } catch (Exception e) {
+            Log.e("BlobManager", "Could not resize image - " + e.getMessage(), e);
             return null;
         }
     }

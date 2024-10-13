@@ -2,6 +2,8 @@ package com.example.virtualbookshelf.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +14,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.virtualbookshelf.R;
 import com.example.virtualbookshelf.model.db.DBManager;
+import com.example.virtualbookshelf.model.ml.FoundObject;
 import com.example.virtualbookshelf.viewmodel.MainFoundBooksViewModel;
+
+import java.util.ArrayList;
 
 /**
  * Activity to show the found books
@@ -23,6 +28,8 @@ public class MainFoundBooksActivity extends AppCompatActivity {
      * The view model for managing UI-related data and user interactions.
      */
     private MainFoundBooksViewModel mainFoundBooksViewModel;
+
+    private TextView noBooksFoundTextView;
 
     /**
      * Called when the activity is created. Initializes the activity's layout, sets up the ViewModel,
@@ -37,6 +44,9 @@ public class MainFoundBooksActivity extends AppCompatActivity {
         // Initializing the ViewModel to manage UI-related data and logic.
         mainFoundBooksViewModel = new ViewModelProvider(this).get(MainFoundBooksViewModel.class);
         DBManager dbManager = mainFoundBooksViewModel.getDbManager();
+
+        ArrayList<FoundObject> foundBooks = getIntent().getParcelableArrayListExtra("foundBooks");
+        checkFoundBooks(foundBooks);
 
         // Adjusts the padding of the main view to account for system bars (like the status bar).
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main_found_books), (v, insets) -> {
@@ -91,5 +101,14 @@ public class MainFoundBooksActivity extends AppCompatActivity {
                 mainFoundBooksViewModel.resetNavigationUser();
             }
         });
+    }
+
+    public void checkFoundBooks(ArrayList<FoundObject> foundBooks){
+        noBooksFoundTextView = findViewById(R.id.text_noBooks_main_found_books);
+        if(foundBooks == null || foundBooks.isEmpty()) {
+            noBooksFoundTextView.setVisibility(View.VISIBLE);
+        } else {
+
+        }
     }
 }

@@ -27,4 +27,5 @@
     <string name="could_not_load_image">Could not load image :(</string>
     <string name="open_camera_and_take_a_photo">Open camera and take a photo!</string>
     <string name="found_books">Found books:</string>
+    <string name="no_books_could_be_found">No books could be found :(</string>
 </resources>

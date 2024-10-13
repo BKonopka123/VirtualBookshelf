@@ -1,6 +1,7 @@
 package com.example.virtualbookshelf.viewmodel;
 
 import android.app.Application;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
@@ -10,8 +11,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.virtualbookshelf.model.BlobManager;
+import com.example.virtualbookshelf.model.ml.FoundObject;
+import com.example.virtualbookshelf.model.ml.TesseractManager;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * MainProcessImageViewModel is a ViewModel responsible for managing the main process of image processing.
@@ -99,8 +104,9 @@ public class MainProcessImageViewModel extends MainViewModel {
         return bitmap;
     }
 
-//    public List<Book> findBooks(Bitmap bitmap) {
-//
-//        return null;
-//    }
+    public ArrayList<FoundObject> findBooks(Bitmap bitmap, String dataPath, AssetManager assetManager) {
+        TesseractManager tesseractManager = new TesseractManager(bitmap, dataPath, assetManager);
+        ArrayList<FoundObject> foundBooks = tesseractManager.findBooks();
+        return foundBooks;
+    }
 }

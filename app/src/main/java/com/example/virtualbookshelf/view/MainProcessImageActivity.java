@@ -21,9 +21,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.virtualbookshelf.R;
 import com.example.virtualbookshelf.model.db.DBManager;
+import com.example.virtualbookshelf.model.ml.FoundObject;
 import com.example.virtualbookshelf.viewmodel.MainProcessImageViewModel;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Activity for showing taken image and processing it.
@@ -64,7 +66,7 @@ public class MainProcessImageActivity extends AppCompatActivity {
         mainProcessImageViewModel = new ViewModelProvider(this).get(MainProcessImageViewModel.class);
         DBManager dbManager = mainProcessImageViewModel.getDbManager();
         String filePath = getIntent().getStringExtra("imageUri");
-        showImage(filePath);
+        Bitmap processedImage = showImage(filePath);
 
         // Adjusts the padding of the main view to account for system bars (like the status bar).
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main_photo_history), (v, insets) -> {
@@ -127,10 +129,10 @@ public class MainProcessImageActivity extends AppCompatActivity {
         // Observing the navigation LiveData in the ViewModel to handle navigation events.
         mainProcessImageViewModel.getNavigateToMainFoundBooks().observe(this, navigate -> {
             if (navigate) {
-//                List<Book> foundBooks = mainProcessImageViewModel.findBooks(processedImage);
+                ArrayList<FoundObject> foundBooks = mainProcessImageViewModel.findBooks(processedImage, getFilesDir() + "/tesseract/", getAssets());
 
                 Intent intent = new Intent(MainProcessImageActivity.this, MainFoundBooksActivity.class);
-
+                intent.putExtra("foundBooks", foundBooks);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
@@ -146,17 +148,18 @@ public class MainProcessImageActivity extends AppCompatActivity {
     private void deleteFileFromUri(Uri uri) {
         try {
             getContentResolver().delete(uri, null, null);
-            Log.e("MainProcessImageActivity", "File deleted");
+            Log.d("MainProcessImageActivity", "File deleted");
         } catch (Exception e){
             Log.e("MainProcessImageActivity", "Error deleting file - " + e.getMessage(), e);
         }
     }
 
     /**
-     * Shows the image from the given file path.
-     * @param filePath The path of the image file.
+     * Shows image/text with information that no photo found.
+     * @param filePath Path to image.
+     * @return Processed image.
      */
-    private void showImage(String filePath){
+    private Bitmap showImage(String filePath){
         Bitmap image = null;
         Uri imageUri = null;
         if(filePath != null && !filePath.equals("null")){
@@ -187,5 +190,6 @@ public class MainProcessImageActivity extends AppCompatActivity {
             processImageButton.setEnabled(false);
             processImageButton.setClickable(false);
         }
+        return processedImage;
     }
 }

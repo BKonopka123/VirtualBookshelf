@@ -1,5 +1,6 @@
 package com.example.virtualbookshelf.view;
 
+import android.content.pm.PackageManager;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
@@ -7,11 +8,15 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -47,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private ActivityResultLauncher<Intent> cameraLauncher;
 
+    private static final int REQUEST_CODE_CAMERA = 100;
+
     /**
      * Called when the activity is created. Initializes the activity's layout, sets up the ViewModel,
      * handles the window insets, and defines click listeners for navigation buttons.
@@ -59,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        if(!checkCameraPermission()){
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, REQUEST_CODE_CAMERA);
+        }
 
         // Initializing the ViewModel to manage UI-related data and logic.
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
@@ -141,11 +151,15 @@ public class MainActivity extends AppCompatActivity {
         mainViewModel.getNavigateToMainProcessImage().observe(this, navigate -> {
             if (navigate) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    imageUri = createFileImageUri();
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    cameraLauncher.launch(intent);
+                if(checkCameraPermission()) {
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        imageUri = createFileImageUri();
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        cameraLauncher.launch(intent);
+                    }
+                } else {
+                    ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, REQUEST_CODE_CAMERA);
                 }
 
                 mainViewModel.resetNavigationMainProcessImage();
@@ -189,6 +203,35 @@ public class MainActivity extends AppCompatActivity {
             return FileProvider.getUriForFile(this, "com.example.virtualbookshelf.fileprovider", imageFile);
         } else {
             return null;
+        }
+    }
+
+    /**
+     * Checks if the app has the necessary camera permission.
+     * @return True if the permission is granted, false otherwise.
+     */
+    private boolean checkCameraPermission() {
+        return ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    /**
+     * Handles the result of the camera permission request.
+     * @param requestCode The request code passed in
+     * @param permissions The requested permissions. Never null.
+     * @param grantResults The grant results for the corresponding permissions
+     *     which is either {@link android.content.pm.PackageManager#PERMISSION_GRANTED}
+     *     or {@link android.content.pm.PackageManager#PERMISSION_DENIED}. Never null.
+     *
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_CAMERA) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "App has camera access", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "App needs camera access", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

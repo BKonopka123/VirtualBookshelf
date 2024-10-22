@@ -65,7 +65,7 @@ public class MainProcessImageViewModel extends MainViewModel {
         if(bitmap == null || uri == null)
             return null;
         bitmap = rotateUri(uri, bitmap);
-        bitmap = BlobManager.resizeImage(bitmap, 800, 1280);
+        bitmap = BlobManager.resizeImage(bitmap, 1080, 1920);
 
         return bitmap;
     }
@@ -104,6 +104,12 @@ public class MainProcessImageViewModel extends MainViewModel {
         return bitmap;
     }
 
+    /**
+     * Find books in image.
+     * @param bitmap Bitmap of image.
+     * @param dataPath Path to data.
+     * @param assetManager Asset manager.
+     */
     public ArrayList<FoundObject> findBooks(Bitmap bitmap, String dataPath, AssetManager assetManager) {
         TesseractManager tesseractManager = new TesseractManager(bitmap, dataPath, assetManager);
         ArrayList<FoundObject> foundBooks = tesseractManager.findBooks();

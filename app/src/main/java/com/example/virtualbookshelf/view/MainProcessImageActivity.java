@@ -1,15 +1,22 @@
 package com.example.virtualbookshelf.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -129,6 +136,11 @@ public class MainProcessImageActivity extends AppCompatActivity {
         // Observing the navigation LiveData in the ViewModel to handle navigation events.
         mainProcessImageViewModel.getNavigateToMainFoundBooks().observe(this, navigate -> {
             if (navigate) {
+                if(!checkInternetAvailability()) {
+                    Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
+                    mainProcessImageViewModel.resetNavigationMainFoundBooks();
+                    return;
+                }
                 ArrayList<FoundObject> foundBooks = mainProcessImageViewModel.findBooks(processedImage, getFilesDir() + "/tesseract/", getAssets());
 
                 Intent intent = new Intent(MainProcessImageActivity.this, MainFoundBooksActivity.class);
@@ -191,5 +203,25 @@ public class MainProcessImageActivity extends AppCompatActivity {
             processImageButton.setClickable(false);
         }
         return processedImage;
+    }
+
+    /**
+     * Checks if there is internet connection.
+     * @return True if there is internet connection, false otherwise.
+     */
+    private boolean checkInternetAvailability() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            Network network = connectivityManager.getActiveNetwork();
+            if (network == null) {
+                return false;
+            }
+            NetworkCapabilities networkCapabilities = connectivityManager.getNetworkCapabilities(network);
+            return networkCapabilities != null &&
+                    (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET));
+        }
+        return false;
     }
 }

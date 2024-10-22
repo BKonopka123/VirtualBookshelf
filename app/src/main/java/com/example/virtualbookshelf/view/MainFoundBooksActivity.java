@@ -29,6 +29,9 @@ public class MainFoundBooksActivity extends AppCompatActivity {
      */
     private MainFoundBooksViewModel mainFoundBooksViewModel;
 
+    /**
+     * TextView to show that no books were found.
+     */
     private TextView noBooksFoundTextView;
 
     /**
@@ -103,6 +106,10 @@ public class MainFoundBooksActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Checks if there are any found books.
+     * @param foundBooks List of found books.
+     */
     public void checkFoundBooks(ArrayList<FoundObject> foundBooks){
         noBooksFoundTextView = findViewById(R.id.text_noBooks_main_found_books);
         if(foundBooks == null || foundBooks.isEmpty()) {

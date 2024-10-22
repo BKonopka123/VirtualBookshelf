@@ -5,13 +5,32 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+/**
+ * The FoundObject class serves as a wrapper for storing data found by detecting text with Tessreact, and data received from the Google Books API.
+ * The class implements Parcelable so that its objects can be transferred between Activities.
+ */
 public class FoundObject implements Parcelable {
 
+    /**
+     * A photo from which we detect books
+     */
     byte[] image = null;
+    /**
+     * The text detected by Tesseract
+     */
     String foundText = null;
+    /**
+     * The book info received from the Google Books API
+     */
     String bookInfo = null;
+    /**
+     * A boolean to check if the book is in the database
+     */
     boolean isInDatabase = false;
 
+    /**
+     * Default constructor for the FoundObject class
+     */
     public FoundObject() {
         this.image = null;
         this.foundText = null;
@@ -19,6 +38,13 @@ public class FoundObject implements Parcelable {
         this.isInDatabase = false;
     }
 
+    /**
+     * Constructor for the FoundObject class
+     * @param image A photo from which we detect books
+     * @param foundText The text detected by Tesseract
+     * @param bookInfo The book info received from the Google Books API
+     * @param isInDatabase A boolean to check if the book is in the database
+     */
     public FoundObject(byte[] image, String foundText, String bookInfo, boolean isInDatabase) {
         this.image = image;
         this.foundText = foundText;
@@ -26,6 +52,10 @@ public class FoundObject implements Parcelable {
         this.isInDatabase = isInDatabase;
     }
 
+    /**
+     * Constructor for the FoundObject class
+     * @param in Parcel
+     */
     protected FoundObject(Parcel in) {
         this.image = in.createByteArray();
         this.foundText = in.readString();
@@ -33,6 +63,9 @@ public class FoundObject implements Parcelable {
         this.isInDatabase = in.readByte() != 0;
     }
 
+    /**
+     * Creator for the FoundObject class needed to transfer objects between Activities
+     */
     public static final Creator<FoundObject> CREATOR = new Creator<FoundObject>() {
         @Override
         public FoundObject createFromParcel(Parcel in) {
@@ -45,11 +78,20 @@ public class FoundObject implements Parcelable {
         }
     };
 
+    /**
+     * Method needed to transfer objects between Activities
+     * @return int
+     */
     @Override
     public int describeContents() {
         return 0;
     }
 
+    /**
+     * Method needed to transfer objects between Activities. Writes data to parcel
+     * @param parcel Parcel
+     * @param i int
+     */
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
         parcel.writeByteArray(image);
@@ -58,6 +100,9 @@ public class FoundObject implements Parcelable {
         parcel.writeByte((byte) (isInDatabase ? 1 : 0));
     }
 
+    /**
+     * Getters and setters
+     */
     public byte[] getImage() { return image; }
     public void setImage(byte[] image) { this.image = image; }
     public String getFoundText() { return foundText; }

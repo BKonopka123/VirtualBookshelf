@@ -33,7 +33,9 @@ android {
 
 dependencies {
 
-    implementation(libs.rmtheis.tess.two)
+    implementation(libs.retrofit2.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.tesseract.android)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

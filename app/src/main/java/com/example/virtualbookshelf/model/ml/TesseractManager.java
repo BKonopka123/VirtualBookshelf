@@ -2,6 +2,10 @@ package com.example.virtualbookshelf.model.ml;
 
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.util.Log;
 
 import java.io.File;
@@ -10,40 +14,83 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import com.example.virtualbookshelf.model.BlobManager;
 import com.googlecode.tesseract.android.TessBaseAPI;
 
+/**
+ * TesseractManager is a class responsible for managing the Tesseract OCR engine.
+ */
 public class TesseractManager {
 
-    private final Bitmap photo;
+    /**
+     * Bitmap of the image to be processed.
+     */
+    private Bitmap photo;
+    /**
+     * Miniature of the image to be saved to database.
+     */
+    private byte[] miniature = null;
+    /**
+     * TessBaseAPI object for processing the image.
+     */
     private TessBaseAPI tessBaseAPI;
+    /**
+     * Language code for English.
+     */
     private final String languageEng = "eng";
+    /**
+     * Language code for Polish.
+     */
     private final String languagePol = "pol";
+    /**
+     * Path to the data directory with language models.
+     */
     private final String dataPath;
+    /**
+     * AssetManager object for accessing assets.
+     */
     private final AssetManager assetManager;
 
+    /**
+     * Constructor for TesseractManager.
+     *
+     * @param photo Bitmap of the image to be processed.
+     * @param dataPath Path to the data directory with language models.
+     * @param assetManager Asset Manager.
+     */
     public TesseractManager(Bitmap photo, String dataPath, AssetManager assetManager) {
         this.photo = photo;
         this.dataPath = dataPath;
         this.assetManager = assetManager;
         checkIfLanguageDataExists(new File(dataPath + "tessdata/"));
         initializeTesseract();
-
+        createMiniature();
     }
 
+    /**
+     * Finds books in the image.
+     *
+     * @return List of found books.
+     */
     public ArrayList<FoundObject> findBooks() {
         ArrayList<FoundObject> foundObjectsList = new ArrayList<>();
+
+        processImage();
 
         tessBaseAPI.setImage(photo);
         String foundText = tessBaseAPI.getUTF8Text();
 
-        FoundObject foundObject = new FoundObject(null, foundText, null, false);
-        foundObjectsList.add(foundObject);
+        splitFoundText(foundText, foundObjectsList);
 
         logFoundText(foundObjectsList);
         closeTesseract();
         return foundObjectsList;
     }
 
+    /**
+     * Checks if language data exists.
+     * @param directory Directory with language data.
+     */
     private void checkIfLanguageDataExists(File directory) {
         if(!directory.exists() && directory.mkdirs()){
             copyLanguageDataFiles();
@@ -62,6 +109,9 @@ public class TesseractManager {
         }
     }
 
+    /**
+     * Copies language data files to mobile device.
+     */
     private void copyLanguageDataFiles() {
         try {
             InputStream inputStreamEng = assetManager.open("tessdata/" + languageEng + ".traineddata");
@@ -92,15 +142,28 @@ public class TesseractManager {
         }
     }
 
+    /**
+     * Initializes Tesseract.
+     */
     private void initializeTesseract() {
         tessBaseAPI = new TessBaseAPI();
         tessBaseAPI.init(dataPath, languageEng + "+" + languagePol);
+        tessBaseAPI.setVariable("tessedit_char_whitelist", "AĄBCĆDEĘFGHIJKLŁMNŃOÓPQRSŚTUVWXYZŻŹaąbcćdeęfghijklłmnoópqrsśtuvwxyzżź ");
+        tessBaseAPI.setVariable("user_defined_dpi", "300");
+        tessBaseAPI.setVariable("min_characters_to_try", "3");
     }
 
+    /**
+     * Closes Tesseract.
+     */
     private void closeTesseract() {
-        tessBaseAPI.end();
+        tessBaseAPI.recycle();
     }
 
+    /**
+     * Logs found text.
+     * @param foundObjectsList List of found objects.
+     */
     private void logFoundText(ArrayList<FoundObject> foundObjectsList) {
         for (FoundObject foundObject : foundObjectsList) {
             if (foundObject.getImage() != null)
@@ -119,6 +182,150 @@ public class TesseractManager {
                 Log.d("TesseractManager", "Is in database: true");
             else
                 Log.d("TesseractManager", "Is in database: false");
+        }
+    }
+
+    /**
+     * Process image. Changes the image to gray scale and increases its contrast.
+     */
+    private void processImage() {
+        try {
+            // Convert the image to gray scale
+            Bitmap photo_GrayScale = Bitmap.createBitmap(photo.getWidth(), photo.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas_GrayScale = new Canvas(photo_GrayScale);
+            Paint paint_GrayScale = new Paint();
+            ColorMatrix colorMatrix_GrayScale = new ColorMatrix();
+            colorMatrix_GrayScale.setSaturation(0);
+            ColorMatrixColorFilter colorFilter_GrayScale = new ColorMatrixColorFilter(colorMatrix_GrayScale);
+            paint_GrayScale.setColorFilter(colorFilter_GrayScale);
+            canvas_GrayScale.drawBitmap(photo, 0, 0, paint_GrayScale);
+            photo = photo_GrayScale;
+
+            // Change image contrast and brightness
+            float contrast_value = 1.5f;
+            float brightness_value = -50;
+            Bitmap photo_Contrast = Bitmap.createBitmap(photo.getWidth(), photo.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas_Contrast = new Canvas(photo_Contrast);
+            Paint paint_Contrast = new Paint();
+            ColorMatrix colorMatrix_Contrast = new ColorMatrix();
+            colorMatrix_Contrast.set(new float[]{
+                    contrast_value, 0, 0, 0, brightness_value,
+                    0, contrast_value, 0, 0, brightness_value,
+                    0, 0, contrast_value, 0, brightness_value,
+                    0, 0, 0, 1, 0
+            });
+            ColorMatrixColorFilter colorFilter_Contrast = new ColorMatrixColorFilter(colorMatrix_Contrast);
+            paint_Contrast.setColorFilter(colorFilter_Contrast);
+            canvas_Contrast.drawBitmap(photo, 0, 0, paint_Contrast);
+            photo = photo_Contrast;
+        } catch(Exception e) {
+            Log.e("TesseractManager", "Error processing image - " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Splits found text into lines.
+     * @param foundText Found text.
+     * @param foundObjectsList List of found objects.
+     */
+    private void splitFoundText(String foundText, ArrayList<FoundObject> foundObjectsList) {
+        try {
+            StringBuilder foundLine = new StringBuilder();
+            for (int i = 0; i < foundText.length(); i++) {
+                char currentChar = foundText.charAt(i);
+                if (currentChar == '\n' || i == foundText.length() - 1) {
+                    String processedLine = checkFoundText(foundLine.toString());
+                    if (!processedLine.isEmpty()) {
+                        FoundObject foundObject = new FoundObject(miniature, processedLine, null, false);
+                        foundObjectsList.add(foundObject);
+//                    Log.d("TesseractManager", "Found text: " + foundLine.toString());
+                    }
+                    foundLine.setLength(0);
+                    continue;
+                }
+                foundLine.append(currentChar);
+            }
+        } catch (Exception e) {
+            Log.e("TesseractManager", "Error splitting found text - " + e.getMessage(), e);
+            foundObjectsList.clear();
+        }
+    }
+
+    /**
+     * Checks if found text is valid.
+     * @param foundLine Line with found text.
+     * @return Processed line with found text.
+     */
+    private String checkFoundText(String foundLine) {
+        try {
+            ArrayList<String> foundWordsList = new ArrayList<>();
+            StringBuilder foundWord = new StringBuilder();
+            for (int i = 0; i < foundLine.length(); i++) {
+                char currentChar = foundLine.charAt(i);
+                if (currentChar == ' ' || i == foundLine.length() - 1) {
+                    if (currentChar != ' ') {
+                        foundWord.append(currentChar);
+                    }
+                    foundWordsList.add(foundWord.toString());
+                    foundWord.setLength(0);
+                    continue;
+                }
+                foundWord.append(currentChar);
+            }
+
+            int foundWordNumber = foundWordsList.size();
+            int foundWordNumberFalse = 0;
+
+            if (foundWordNumber == 0) {
+                return "";
+            }
+
+            if (foundWordsList.get(foundWordsList.size() - 1).equals(" ")) {
+                foundWordsList.remove(foundWordsList.size() - 1);
+            }
+
+            for (String word : foundWordsList) {
+                if (word.length() <= 3) {
+                    foundWordNumberFalse++;
+                }
+            }
+//        Log.d("Tesseract Manager", "before returning: " + String.join(" ", foundWordsList));
+//        Log.d("TesseractManager", "Number: " + foundWordNumber + " False Number: " + foundWordNumberFalse + " %: " + (float) foundWordNumberFalse / (float) foundWordNumber);
+            if (!((float) foundWordNumberFalse / (float) foundWordNumber >= 0.7)) {
+                if (foundWordsList.get(0).length() == 1) {
+                    foundWordsList.remove(0);
+                }
+                if (foundWordsList.get(foundWordsList.size() - 1).length() == 1) {
+                    foundWordsList.remove(foundWordsList.size() - 1);
+                }
+                return String.join(" ", foundWordsList);
+            } else {
+                return "";
+            }
+        } catch (Exception e) {
+            Log.e("TesseractManager", "Error checking found text - " + e.getMessage(), e);
+            return "";
+        }
+    }
+
+    /**
+     * Creates miniature of the image.
+     */
+    private void createMiniature() {
+        try {
+            int width = photo.getWidth();
+            int height = photo.getHeight();
+            int size = Math.min(width, height);
+
+            int x = (width - size) / 2;
+            int y = (height - size) / 2;
+
+            Bitmap photoCropped = Bitmap.createBitmap(photo, x, y, size, size);
+            Bitmap photoResized = Bitmap.createScaledBitmap(photoCropped, 100, 100, true);
+
+            miniature = BlobManager.getByteFromBitmap(photoResized);
+        } catch(Exception e) {
+            Log.e("TesseractManager", "Error creating miniature - " + e.getMessage(), e);
         }
     }
 }

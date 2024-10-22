@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
      */
     private ActivityResultLauncher<Intent> cameraLauncher;
 
+    /**
+     * The request code for the camera permission request.
+     */
     private static final int REQUEST_CODE_CAMERA = 100;
 
     /**

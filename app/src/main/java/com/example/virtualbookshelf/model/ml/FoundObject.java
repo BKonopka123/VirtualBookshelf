@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.util.List;
+
 /**
  * The FoundObject class serves as a wrapper for storing data found by detecting text with Tessreact, and data received from the Google Books API.
  * The class implements Parcelable so that its objects can be transferred between Activities.
@@ -20,9 +22,26 @@ public class FoundObject implements Parcelable {
      */
     String foundText = null;
     /**
-     * The book info received from the Google Books API
+     * Book title
      */
-    String bookInfo = null;
+    String title;
+    /**
+     * Book authors
+     */
+    List<String> authors;
+    /**
+     * Book published date
+     */
+    String publishedDate;
+    /**
+     * Book description
+     */
+    String description;
+    /**
+     * Book categories
+     */
+    List<String> categories;
+
     /**
      * A boolean to check if the book is in the database
      */
@@ -34,7 +53,11 @@ public class FoundObject implements Parcelable {
     public FoundObject() {
         this.image = null;
         this.foundText = null;
-        this.bookInfo = null;
+        this.title = null;
+        this.authors = null;
+        this.publishedDate = null;
+        this.description = null;
+        this.categories = null;
         this.isInDatabase = false;
     }
 
@@ -42,13 +65,21 @@ public class FoundObject implements Parcelable {
      * Constructor for the FoundObject class
      * @param image A photo from which we detect books
      * @param foundText The text detected by Tesseract
-     * @param bookInfo The book info received from the Google Books API
+     * @param title Book title
+     * @param authors Book authors
+     * @param publishedDate Book published date
+     * @param description Book description
+     * @param categories Book categories
      * @param isInDatabase A boolean to check if the book is in the database
      */
-    public FoundObject(byte[] image, String foundText, String bookInfo, boolean isInDatabase) {
+    public FoundObject(byte[] image, String foundText, String title, List<String> authors, String publishedDate, String description, List<String> categories, boolean isInDatabase) {
         this.image = image;
         this.foundText = foundText;
-        this.bookInfo = bookInfo;
+        this.title = title;
+        this.authors = authors;
+        this.publishedDate = publishedDate;
+        this.description = description;
+        this.categories = categories;
         this.isInDatabase = isInDatabase;
     }
 
@@ -59,7 +90,11 @@ public class FoundObject implements Parcelable {
     protected FoundObject(Parcel in) {
         this.image = in.createByteArray();
         this.foundText = in.readString();
-        this.bookInfo = in.readString();
+        this.title = in.readString();
+        this.authors = in.createStringArrayList();
+        this.publishedDate = in.readString();
+        this.description = in.readString();
+        this.categories = in.createStringArrayList();
         this.isInDatabase = in.readByte() != 0;
     }
 
@@ -96,7 +131,11 @@ public class FoundObject implements Parcelable {
     public void writeToParcel(@NonNull Parcel parcel, int i) {
         parcel.writeByteArray(image);
         parcel.writeString(foundText);
-        parcel.writeString(bookInfo);
+        parcel.writeString(title);
+        parcel.writeStringList(authors);
+        parcel.writeString(publishedDate);
+        parcel.writeString(description);
+        parcel.writeStringList(categories);
         parcel.writeByte((byte) (isInDatabase ? 1 : 0));
     }
 
@@ -107,8 +146,16 @@ public class FoundObject implements Parcelable {
     public void setImage(byte[] image) { this.image = image; }
     public String getFoundText() { return foundText; }
     public void setFoundText(String foundText) { this.foundText = foundText; }
-    public String getBookInfo() { return bookInfo; }
-    public void setBookInfo(String bookInfo) { this.bookInfo = bookInfo; }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+    public List<String> getAuthors() { return authors; }
+    public void setAuthors(List<String> authors) { this.authors = authors; }
+    public String getPublishedDate() { return publishedDate; }
+    public void setPublishedDate(String publishedDate) { this.publishedDate = publishedDate; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+    public List<String> getCategories() { return categories; }
+    public void setCategories(List<String> categories) { this.categories = categories; }
     public boolean getIsInDatabase() { return isInDatabase; }
     public void setIsInDatabase(boolean isInDatabase) {this.isInDatabase = isInDatabase; }
 }

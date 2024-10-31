@@ -2,6 +2,7 @@ package com.example.virtualbookshelf.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,6 +14,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.virtualbookshelf.R;
+import com.example.virtualbookshelf.model.Book;
+import com.example.virtualbookshelf.model.Photo;
 import com.example.virtualbookshelf.model.db.DBManager;
 import com.example.virtualbookshelf.model.ml.FoundObject;
 import com.example.virtualbookshelf.viewmodel.MainFoundBooksViewModel;
@@ -35,6 +38,16 @@ public class MainFoundBooksActivity extends AppCompatActivity {
     private TextView noBooksFoundTextView;
 
     /**
+     * List of books.
+     */
+    private ArrayList<Book> books = new ArrayList<>();
+
+    /**
+     * Photo of the books.
+     */
+    private Photo photo;
+
+    /**
      * Called when the activity is created. Initializes the activity's layout, sets up the ViewModel,
      * @param savedInstanceState If the activity is being re-created from a previous state, this bundle contains the saved state.
      */
@@ -48,6 +61,7 @@ public class MainFoundBooksActivity extends AppCompatActivity {
         mainFoundBooksViewModel = new ViewModelProvider(this).get(MainFoundBooksViewModel.class);
         DBManager dbManager = mainFoundBooksViewModel.getDbManager();
 
+        // Getting and managing received books
         ArrayList<FoundObject> foundBooks = getIntent().getParcelableArrayListExtra("foundBooks");
         checkFoundBooks(foundBooks);
 
@@ -112,9 +126,22 @@ public class MainFoundBooksActivity extends AppCompatActivity {
      */
     public void checkFoundBooks(ArrayList<FoundObject> foundBooks){
         noBooksFoundTextView = findViewById(R.id.text_noBooks_main_found_books);
+        //The case where no books were found
         if(foundBooks == null || foundBooks.isEmpty()) {
             noBooksFoundTextView.setVisibility(View.VISIBLE);
+        // The case where books were found
         } else {
+            noBooksFoundTextView.setVisibility(View.INVISIBLE);
+
+            this.photo = mainFoundBooksViewModel.createNewPhoto(foundBooks);
+
+            ArrayList<Book> booksTmp = mainFoundBooksViewModel.convertFoundObjectsToBooks(foundBooks);
+            for (Book book : booksTmp) {
+                this.books.add(new Book(book.getId(), book.getPhotoId(), book.getUserId(), book.getTitle(), book.getAuthor(), book.getPhoto(), book.getDescription(), book.getGenre(), book.getDate(), book.getStatus(), book.getIsAdded()));
+            }
+
+            mainFoundBooksViewModel.LogBooks(this.books, this.photo);
+
 
         }
     }

@@ -23,12 +23,8 @@ public class Book {
     String genre;
     /** Date the book was written */
     String date;
-    /** Link to the lubimyczytac.pl */
-    String link;
     /** Book reading status */
     String status;
-    /** Information of book edition while adding it to database */
-    String editInformation;
     /** Information about whether the book was added by the user*/
     Boolean isAdded;
 
@@ -44,12 +40,10 @@ public class Book {
      * @param description Book description.
      * @param genre Book genre.
      * @param date Date the book was written.
-     * @param link Link to the lubimyczytac.pl.
      * @param status Book reading status.
-     * @param editInformation Information of book edition while adding it to database.
      * @param isAdded Information about whether the book was added by the user.
      */
-    public Book(Integer id, Integer photoId, Integer userId, String title, String author, byte[] photo, String description, String genre, String date, String link, String status, String editInformation, Boolean isAdded) {
+    public Book(Integer id, Integer photoId, Integer userId, String title, String author, byte[] photo, String description, String genre, String date, String status, Boolean isAdded) {
         this.id = id;
         this.photoId = photoId;
         this.userId = userId;
@@ -59,9 +53,7 @@ public class Book {
         this.description = description;
         this.genre = genre;
         this.date = date;
-        this.link = link;
         this.status = status;
-        this.editInformation = editInformation;
         this.isAdded = isAdded;
     }
 
@@ -84,12 +76,8 @@ public class Book {
     public void setGenre(String genre) {this.genre = genre; }
     public String getDate() { return date; }
     public void setDate(String date) {this.date = date; }
-    public String getLink() { return link; }
-    public void setLink(String link) {this.link = link; }
     public String getStatus() { return status; }
     public void setStatus(String status) {this.status = status; }
-    public String getEditInformation() { return editInformation; }
-    public void setEditInformation(String editInformation) {this.editInformation = editInformation; }
     public Boolean getIsAdded() { return isAdded; }
     public void setIsAdded(Boolean isAdded) {this.isAdded = isAdded; }
 

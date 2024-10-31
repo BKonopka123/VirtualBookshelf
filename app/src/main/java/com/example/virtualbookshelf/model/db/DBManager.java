@@ -159,9 +159,7 @@ public class DBManager {
         values.put("Description", book.getDescription());
         values.put("Genre", book.getGenre());
         values.put("Date", book.getDate());
-        values.put("Link", book.getLink());
         values.put("Status", book.getStatus());
-        values.put("Edit_information", book.getEditInformation());
         values.put("Is_added", book.getIsAdded());
 
         try {
@@ -177,7 +175,7 @@ public class DBManager {
      * @return Cursor object containing the result set
      */
     public Cursor getAllBooks() {
-        String[] columns = {"Book_id", "Photo_id", "User_id", "Title", "Author", "Photo", "Description", "Genre", "Date", "Link", "Status", "Edit_information", "Is_added"};
+        String[] columns = {"Book_id", "Photo_id", "User_id", "Title", "Author", "Photo", "Description", "Genre", "Date", "Status", "Is_added"};
         try {
             return database.query("Book", columns, null, null, null, null, null);
         } catch (Exception e) {
@@ -193,7 +191,7 @@ public class DBManager {
      * @return Cursor object containing the result set
      */
     public Cursor getBookById(int bookId) {
-        String[] columns = {"Book_id", "Photo_id", "User_id", "Title", "Author", "Photo", "Description", "Genre", "Date", "Link", "Status", "Edit_information", "Is_added"};
+        String[] columns = {"Book_id", "Photo_id", "User_id", "Title", "Author", "Photo", "Description", "Genre", "Date", "Status", "Is_added"};
         try {
             return database.query("Book", columns, "Book_id = ?", new String[]{String.valueOf(bookId)}, null, null, null);
         } catch (Exception e) {
@@ -217,9 +215,7 @@ public class DBManager {
         values.put("Description", book.getDescription());
         values.put("Genre", book.getGenre());
         values.put("Date", book.getDate());
-        values.put("Link", book.getLink());
         values.put("Status", book.getStatus());
-        values.put("Edit_information", book.getEditInformation());
         values.put("Is_added", book.getIsAdded());
 
         try {
@@ -352,19 +348,19 @@ public class DBManager {
                 Photo photo2 = new Photo(2, 2, new byte[0], "2024-08-25");
                 blobManager.loadToPhoto(photo2);
                 insertPhoto(photo2);
-                Book book1 = new Book(1, 1, 1, "Book 1", "Author 1", new byte[0], "Description 1", "Genre 1", "2023-05-01", "Link 1", "Read", "aaa", true);
+                Book book1 = new Book(1, 1, 1, "Book 1", "Author 1", new byte[0], "Description 1", "Genre 1", "2023-05-01", "Read", true);
                 blobManager.loadToBook(book1);
                 insertBook(book1);
-                Book book2 = new Book(2, 1, 1, "Book 2", "Author 2", new byte[0], "Description 2", "Genre 1", "2023-05-02", "Link 2", "Read", "bbb", false);
+                Book book2 = new Book(2, 1, 1, "Book 2", "Author 2", new byte[0], "Description 2", "Genre 1", "2023-05-02", "Read", false);
                 blobManager.loadToBook(book2);
                 insertBook(book2);
-                Book book3 = new Book(3, 1, 1, "Book 3", "Author 3", new byte[0], "Description 3", "Genre 2", "2023-05-03", "Link 3", "Unread", "ccc", true);
+                Book book3 = new Book(3, 1, 1, "Book 3", "Author 3", new byte[0], "Description 3", "Genre 2", "2023-05-03",  "Unread", true);
                 blobManager.loadToBook(book3);
                 insertBook(book3);
-                Book book4 = new Book(4, 2, 1, "Book 4", "Author 4", new byte[0], "Description 4", "Genre 2", "2023-05-04", "Link 4", "Currently", "ddd", true);
+                Book book4 = new Book(4, 2, 1, "Book 4", "Author 4", new byte[0], "Description 4", "Genre 2", "2023-05-04",  "Currently", true);
                 blobManager.loadToBook(book4);
                 insertBook(book4);
-                Book book5 = new Book(5, 2, 1, "Book 5", "Author 5", new byte[0], "Description 5", "Genre 3", "2023-05-05", "Link 5", "Queue", "eee", true);
+                Book book5 = new Book(5, 2, 1, "Book 5", "Author 5", new byte[0], "Description 5", "Genre 3", "2023-05-05", "Queue", true);
                 blobManager.loadToBook(book5);
                 insertBook(book5);
             }

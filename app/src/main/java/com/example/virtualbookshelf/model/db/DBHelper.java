@@ -80,9 +80,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "Description TEXT NOT NULL," +
                 "Genre TEXT NOT NULL," +
                 "Date DATE NOT NULL," +
-                "Link TEXT NOT NULL," +
                 "Status TEXT NOT NULL," +
-                "Edit_information TEXT NOT NULL," +
                 "Is_added BOOLEAN NOT NULL," +
                 "FOREIGN KEY(Photo_id) REFERENCES Photo(Photo_id) ON DELETE CASCADE ON UPDATE NO ACTION," +
                 "FOREIGN KEY(User_id) REFERENCES User(User_id) ON DELETE CASCADE ON UPDATE NO ACTION)";

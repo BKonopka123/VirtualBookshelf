@@ -7,9 +7,7 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
-import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -24,6 +22,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.virtualbookshelf.R;
@@ -141,14 +140,31 @@ public class MainProcessImageActivity extends AppCompatActivity {
                     mainProcessImageViewModel.resetNavigationMainFoundBooks();
                     return;
                 }
-                ArrayList<FoundObject> foundBooks = mainProcessImageViewModel.findBooks(processedImage, getFilesDir() + "/tesseract/", getAssets());
+                processImageButton.setBackgroundResource(R.drawable.rounded_button_background_invalid);
+                processImageButton.setTextColor(Color.parseColor("#0D0D0D"));
+                processImageButton.setEnabled(false);
+                processImageButton.setClickable(false);
+                mainProcessImageViewModel.findBooks(processedImage, getFilesDir() + "/tesseract/", getAssets());
+            }
+        });
 
+        // Observing the found books LiveData in the ViewModel to handle navigation events.
+        mainProcessImageViewModel.getFoundBooksLiveData().observe(this, new Observer<ArrayList<FoundObject>>() {
+            @Override
+            public void onChanged(ArrayList<FoundObject> foundBooks) {
                 Intent intent = new Intent(MainProcessImageActivity.this, MainFoundBooksActivity.class);
                 intent.putExtra("foundBooks", foundBooks);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
                 mainProcessImageViewModel.resetNavigationMainFoundBooks();
+            }
+        });
+
+        // Observing the show toast event LiveData in the ViewModel to handle navigation events.
+        mainProcessImageViewModel.getShowToastEvent().observe(this, message -> {
+            if (message != null) {
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             }
         });
     }

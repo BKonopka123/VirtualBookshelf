@@ -166,6 +166,7 @@ public class TesseractManager {
      */
     private void logFoundText(ArrayList<FoundObject> foundObjectsList) {
         for (FoundObject foundObject : foundObjectsList) {
+            Log.d("TesseractManager", "--------------------------------------------------------");
             if (foundObject.getImage() != null)
                 Log.d("TesseractManager", "Found image length: " + foundObject.getImage().length);
             else
@@ -174,10 +175,26 @@ public class TesseractManager {
                 Log.d("TesseractManager", "Found text: " + foundObject.getFoundText());
             else
                 Log.d("TesseractManager", "Found text is null");
-            if (foundObject.getBookInfo() != null)
-                Log.d("TesseractManager", "Book info: " + foundObject.getBookInfo());
+            if (foundObject.getTitle() != null)
+                Log.d("TesseractManager", "Title: " + foundObject.getTitle());
             else
-                Log.d("TesseractManager", "Book info is null");
+                Log.d("TesseractManager", "Book Title is null");
+            if (foundObject.getAuthors() != null)
+                Log.d("TesseractManager", "Authors: " + String.join(", ", foundObject.getAuthors()));
+            else
+                Log.d("TesseractManager", "Authors are null");
+            if (foundObject.getPublishedDate() != null)
+                Log.d("TesseractManager", "Published date: " + foundObject.getPublishedDate());
+            else
+                Log.d("TesseractManager", "Published date is null");
+            if (foundObject.getDescription() != null)
+                Log.d("TesseractManager", "Description: " + foundObject.getDescription());
+            else
+                Log.d("TesseractManager", "Description is null");
+            if (foundObject.getCategories() != null)
+                Log.d("TesseractManager", "Categories: " + String.join(", ", foundObject.getCategories()));
+            else
+                Log.d("TesseractManager", "Categories are null");
             if (foundObject.getIsInDatabase())
                 Log.d("TesseractManager", "Is in database: true");
             else
@@ -236,7 +253,7 @@ public class TesseractManager {
                 if (currentChar == '\n' || i == foundText.length() - 1) {
                     String processedLine = checkFoundText(foundLine.toString());
                     if (!processedLine.isEmpty()) {
-                        FoundObject foundObject = new FoundObject(miniature, processedLine, null, false);
+                        FoundObject foundObject = new FoundObject(miniature, processedLine, null, null, null, null, null, false);
                         foundObjectsList.add(foundObject);
 //                    Log.d("TesseractManager", "Found text: " + foundLine.toString());
                     }
@@ -289,8 +306,6 @@ public class TesseractManager {
                     foundWordNumberFalse++;
                 }
             }
-//        Log.d("Tesseract Manager", "before returning: " + String.join(" ", foundWordsList));
-//        Log.d("TesseractManager", "Number: " + foundWordNumber + " False Number: " + foundWordNumberFalse + " %: " + (float) foundWordNumberFalse / (float) foundWordNumber);
             if (!((float) foundWordNumberFalse / (float) foundWordNumber >= 0.7)) {
                 if (foundWordsList.get(0).length() == 1) {
                     foundWordsList.remove(0);

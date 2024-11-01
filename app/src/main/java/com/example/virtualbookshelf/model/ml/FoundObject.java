@@ -22,6 +22,10 @@ public class FoundObject implements Parcelable {
      */
     String foundText = null;
     /**
+     * Book id
+     */
+    String id;
+    /**
      * Book title
      */
     String title;
@@ -29,6 +33,10 @@ public class FoundObject implements Parcelable {
      * Book authors
      */
     List<String> authors;
+    /**
+     * Book publisher
+     */
+    String publisher;
     /**
      * Book published date
      */
@@ -53,8 +61,10 @@ public class FoundObject implements Parcelable {
     public FoundObject() {
         this.image = null;
         this.foundText = null;
+        this.id = null;
         this.title = null;
         this.authors = null;
+        this.publisher = null;
         this.publishedDate = null;
         this.description = null;
         this.categories = null;
@@ -72,11 +82,13 @@ public class FoundObject implements Parcelable {
      * @param categories Book categories
      * @param isInDatabase A boolean to check if the book is in the database
      */
-    public FoundObject(byte[] image, String foundText, String title, List<String> authors, String publishedDate, String description, List<String> categories, boolean isInDatabase) {
+    public FoundObject(byte[] image, String foundText, String id, String title, List<String> authors, String publisher, String publishedDate, String description, List<String> categories, boolean isInDatabase) {
         this.image = image;
         this.foundText = foundText;
+        this.id = id;
         this.title = title;
         this.authors = authors;
+        this.publisher = publisher;
         this.publishedDate = publishedDate;
         this.description = description;
         this.categories = categories;
@@ -90,8 +102,10 @@ public class FoundObject implements Parcelable {
     protected FoundObject(Parcel in) {
         this.image = in.createByteArray();
         this.foundText = in.readString();
+        this.id = in.readString();
         this.title = in.readString();
         this.authors = in.createStringArrayList();
+        this.publisher = in.readString();
         this.publishedDate = in.readString();
         this.description = in.readString();
         this.categories = in.createStringArrayList();
@@ -131,8 +145,10 @@ public class FoundObject implements Parcelable {
     public void writeToParcel(@NonNull Parcel parcel, int i) {
         parcel.writeByteArray(image);
         parcel.writeString(foundText);
+        parcel.writeString(id);
         parcel.writeString(title);
         parcel.writeStringList(authors);
+        parcel.writeString(publisher);
         parcel.writeString(publishedDate);
         parcel.writeString(description);
         parcel.writeStringList(categories);
@@ -146,10 +162,14 @@ public class FoundObject implements Parcelable {
     public void setImage(byte[] image) { this.image = image; }
     public String getFoundText() { return foundText; }
     public void setFoundText(String foundText) { this.foundText = foundText; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
     public List<String> getAuthors() { return authors; }
     public void setAuthors(List<String> authors) { this.authors = authors; }
+    public String getPublisher() { return publisher; }
+    public void setPublisher(String publisher) { this.publisher = publisher; }
     public String getPublishedDate() { return publishedDate; }
     public void setPublishedDate(String publishedDate) { this.publishedDate = publishedDate; }
     public String getDescription() { return description; }

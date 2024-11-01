@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import okhttp3.Request;
@@ -13,6 +14,7 @@ import okio.Timeout;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import org.apache.commons.text.similarity.LevenshteinDistance;
 
 /**
  * The RetrofitManager class is responsible for managing the communication with the Google Books API.
@@ -87,9 +89,11 @@ public class RetrofitManager {
 
                             VolumeInfo volumeInfo = book.getVolumeInfo();
 
-                            FoundObject foundObject = new FoundObject(foundTitles.get(i).getImage(), foundTitles.get(i).getFoundText(), volumeInfo.getTitle(), volumeInfo.getAuthors(), volumeInfo.getPublishedDate(), volumeInfo.getDescription(), volumeInfo.getCategories(), false);
-                            foundBooks.add(foundObject);
-                            logFoundText(foundObject);
+                            FoundObject foundObject = new FoundObject(foundTitles.get(i).getImage(), foundTitles.get(i).getFoundText(), book.getId(), volumeInfo.getTitle(), volumeInfo.getAuthors(), volumeInfo.getPublisher(), volumeInfo.getPublishedDate(), volumeInfo.getDescription(), volumeInfo.getCategories(), false);
+                            if(checkBookIsValid(foundObject)) {
+                                foundBooks.add(foundObject);
+                                logFoundText(foundObject);
+                            }
 
                             counter++;
                         }
@@ -108,6 +112,7 @@ public class RetrofitManager {
 
                 // Check if all requests are completed
                 if (completedRequests.incrementAndGet() == foundTitles.size()) {
+                    removeDuplicateBooks(foundBooks);
                     Log.d("RetrofitManager", "Found books: " + foundBooks.size());
                     callback.onResponse(fakeCall, Response.success(foundBooks));
                 }
@@ -127,6 +132,85 @@ public class RetrofitManager {
         });
     }
 
+
+    //TODO: check if it works
+    /**
+     * Method to check if the book is valid - whether no garbage was found, or whether the book was not found after the author/publisher
+     * @param foundObject book
+     * @return true if book is valid, otherwise false
+     */
+    private boolean checkBookIsValid(FoundObject foundObject){
+        LevenshteinDistance levenshtein = new LevenshteinDistance();
+
+        //Check whether no garbage has been detected
+        String foundTextGarbage = foundObject.getFoundText();
+        String foundTitleGarbage = foundObject.getTitle();
+        if (foundTextGarbage == null || foundTitleGarbage == null)
+            return false;
+        int distanceGarbage = levenshtein.apply(foundTextGarbage, foundTitleGarbage);
+        int strLengthGarbage = Math.max(foundTextGarbage.length(), foundTitleGarbage.length());
+        float factorGarbage = (float) distanceGarbage / (float) strLengthGarbage;
+
+        if(factorGarbage >= 0.9) {
+            Log.d("RetrofitManager", "------------------------");
+            Log.d("RetrofitManager", "Found garbage: " + foundTextGarbage + " - " + foundTitleGarbage + " % " + factorGarbage);
+            Log.d("RetrofitManager", "------------------------");
+            return false;
+        }
+
+        //Checking whether the book was found by author/publisher
+        String foundTextAuthorPublisher = foundObject.getFoundText();
+        List<String> foundAuthor = foundObject.getAuthors();
+        String foundPublisher = foundObject.getPublisher();
+        if (foundTextAuthorPublisher == null )
+            return false;
+        if (foundAuthor == null || foundAuthor.isEmpty())
+            return true;
+        if (foundPublisher == null)
+            return true;
+        int distancePublisher = levenshtein.apply(foundTextAuthorPublisher, foundPublisher);
+        int strLengthPublisher = Math.max(foundTextAuthorPublisher.length(), foundPublisher.length());
+        float factorPublisher = (float) distancePublisher / (float) strLengthPublisher;
+
+        if(factorPublisher <= 0.4) {
+            Log.d("RetrofitManager", "------------------------");
+            Log.d("RetrofitManager", "Found publisher: " + foundTextAuthorPublisher + " - " + foundPublisher + " - " + foundTitleGarbage + " % " + factorPublisher);
+            Log.d("RetrofitManager", "------------------------");
+            return false;
+        }
+
+
+        for (String author : foundAuthor) {
+            int distanceAuthor = levenshtein.apply(foundTextAuthorPublisher, author);
+            int strLengthAuthor = Math.max(foundTextAuthorPublisher.length(), author.length());
+            float factorAuthor = (float) distanceAuthor / (float) strLengthAuthor;
+            if(factorAuthor <= 0.4) {
+                Log.d("RetrofitManager", "------------------------");
+                Log.d("RetrofitManager", "Found author: " + foundTextAuthorPublisher + " - " + author + " - " + foundTitleGarbage + " % " + factorAuthor);
+                Log.d("RetrofitManager", "------------------------");
+                return false;
+            }
+
+        }
+
+        return true;
+    }
+
+    /**
+     * Method to remove duplicate books
+     * @param foundBooks ArrayList of found books
+     */
+    private void removeDuplicateBooks(ArrayList<FoundObject> foundBooks){
+        Set<String> ids = new java.util.HashSet<>();
+        for (int i = 0; i < foundBooks.size(); i++) {
+            FoundObject foundObject = foundBooks.get(i);
+            if (!ids.add(foundObject.getId())) {
+                foundBooks.remove(i);
+                i--;
+            }
+        }
+    }
+
     /**
      * Method to log the found text
      * @param foundObject FoundObject
@@ -141,6 +225,10 @@ public class RetrofitManager {
             Log.d("RetrofitManager", "Found text: " + foundObject.getFoundText());
         else
             Log.d("RetrofitManager", "Found text is null");
+        if (foundObject.getId() != null)
+            Log.d("RetrofitManager", "Id: " + foundObject.getId());
+        else
+            Log.d("RetrofitManager", "Book Id is null");
         if (foundObject.getTitle() != null)
             Log.d("RetrofitManager", "Title: " + foundObject.getTitle());
         else
@@ -149,6 +237,10 @@ public class RetrofitManager {
             Log.d("RetrofitManager", "Authors: " + String.join(", ", foundObject.getAuthors()));
         else
             Log.d("RetrofitManager", "Authors are null");
+        if (foundObject.getPublisher() != null)
+            Log.d("RetrofitManager", "Publisher: " + foundObject.getPublisher());
+        else
+            Log.d("RetrofitManager", "Publisher is null");
         if (foundObject.getPublishedDate() != null)
             Log.d("RetrofitManager", "Published date: " + foundObject.getPublishedDate());
         else

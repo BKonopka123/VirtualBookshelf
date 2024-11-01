@@ -15,6 +15,10 @@ public class VolumeInfo {
      */
     private List<String> authors;
     /**
+     * The publisher of the book.
+     */
+    private String publisher;
+    /**
      * The published date of the book.
      */
     private String publishedDate;
@@ -34,6 +38,8 @@ public class VolumeInfo {
     public void setTitle(String title) { this.title = title; }
     public List<String> getAuthors() { return authors; }
     public void setAuthors(List<String> authors) { this.authors = authors; }
+    public String getPublisher() { return publisher; }
+    public void setPublisher(String publisher) { this.publisher = publisher; }
     public String getPublishedDate() { return publishedDate; }
     public void setPublishedDate(String publishedDate) { this.publishedDate = publishedDate; }
     public String getDescription() { return description; }

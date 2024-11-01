@@ -253,7 +253,7 @@ public class TesseractManager {
                 if (currentChar == '\n' || i == foundText.length() - 1) {
                     String processedLine = checkFoundText(foundLine.toString());
                     if (!processedLine.isEmpty()) {
-                        FoundObject foundObject = new FoundObject(miniature, processedLine, null, null, null, null, null, false);
+                        FoundObject foundObject = new FoundObject(miniature, processedLine, null, null, null, null, null, null, null, false);
                         foundObjectsList.add(foundObject);
 //                    Log.d("TesseractManager", "Found text: " + foundLine.toString());
                     }

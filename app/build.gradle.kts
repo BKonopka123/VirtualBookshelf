@@ -32,7 +32,7 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.apache.commons.text)
     implementation(libs.retrofit2.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.tesseract.android)

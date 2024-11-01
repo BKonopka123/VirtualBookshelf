@@ -5,9 +5,25 @@ package com.example.virtualbookshelf.model.ml;
  */
 public class Volume {
     /**
+     * Volume id
+     */
+    private String id;
+    /**
      * VolumeInfo object
      */
     private VolumeInfo volumeInfo;
+
+    /**
+     * Volume id getter
+     * @return Volume id
+     */
+    public String getId() { return id; }
+
+    /**
+     * Volume id setter
+     * @param id Volume id
+     */
+    public void setId(String id) { this.id = id; }
 
     /**
      * Volume info getter

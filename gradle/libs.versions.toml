@@ -1,5 +1,6 @@
 [versions]
 agp = "8.5.1"
+commonsTextVersion = "1.9"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -13,6 +14,7 @@ retrofitVersion = "2.9.0"
 tesseractVersion = "4.7.0"
 
 [libraries]
+apache-commons-text = { module = "org.apache.commons:commons-text", version.ref = "commonsTextVersion" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofitVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

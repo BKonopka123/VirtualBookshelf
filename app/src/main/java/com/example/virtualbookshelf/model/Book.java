@@ -1,9 +1,11 @@
 package com.example.virtualbookshelf.model;
 
+import java.io.Serializable;
+
 /**
  * A class describing a book.
  */
-public class Book {
+public class Book implements Serializable {
 
     /** Book id */
     Integer id;

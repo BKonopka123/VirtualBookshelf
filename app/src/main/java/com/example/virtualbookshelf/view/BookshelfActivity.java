@@ -2,6 +2,7 @@ package com.example.virtualbookshelf.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,10 +10,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.virtualbookshelf.R;
+import com.example.virtualbookshelf.model.Book;
 import com.example.virtualbookshelf.model.db.DBManager;
 import com.example.virtualbookshelf.viewmodel.BookshelfViewModel;
+
+import java.util.ArrayList;
 
 /**
  * BookshelfActivity is an activity representing the virtual bookshelf screen.
@@ -23,6 +29,15 @@ public class BookshelfActivity extends AppCompatActivity {
 
     /** The view model used to manage the bookshelf's data and actions. */
     private BookshelfViewModel bookshelfViewModel;
+
+    /** The list of books in the bookshelf. */
+    private ArrayList<Book> books;
+
+    /** RecyclerView and adapter for displaying the bookshelf's items. */
+    private RecyclerView recyclerView;
+
+    /** Adapter for the RecyclerView. */
+    private BookshelfItemAdapter adapter;
 
     /**
      * Called when the activity is starting. This is where most initialization should go.
@@ -43,6 +58,20 @@ public class BookshelfActivity extends AppCompatActivity {
         bookshelfViewModel = new ViewModelProvider(this).get(BookshelfViewModel.class);
         // Get the database manager from the view model.
         DBManager dbManager = bookshelfViewModel.getDbManager();
+
+        // Initialize the books list.
+        books = new ArrayList<>();
+        bookshelfViewModel.refreshBooksData();
+
+        //Initialize recyclerView and adapter
+        recyclerView = findViewById(R.id.middleLayout_bookshelf);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter = new BookshelfItemAdapter(books, this, book->{
+
+        });
+
+        recyclerView.setAdapter(adapter);
 
         // Handle window insets to adjust padding for system bars (status bar, navigation bar, etc.).
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.bookshelf), (v, insets) -> {
@@ -95,6 +124,12 @@ public class BookshelfActivity extends AppCompatActivity {
 
                 bookshelfViewModel.resetNavigationUser();
             }
+        });
+
+        //-------------------------------------------------Filling up the bookshelf
+        bookshelfViewModel.getBooks().observe(this, books -> {
+            this.books = books;
+            adapter.updateBooks(new ArrayList<>(books));
         });
     }
 }

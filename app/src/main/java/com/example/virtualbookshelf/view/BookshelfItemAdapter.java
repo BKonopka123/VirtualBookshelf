@@ -2,6 +2,7 @@ package com.example.virtualbookshelf.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -144,5 +145,6 @@ public class BookshelfItemAdapter extends RecyclerView.Adapter<BookshelfItemAdap
         booksList.clear();
         booksList.addAll(newBooks);
         notifyDataSetChanged();
+        Log.d("BookshelfItemAdapter", "Books updated");
     }
 }

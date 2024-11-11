@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bookDeleteDialog"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/rounded_dialog_background"
+    android:gravity="center"
+    android:padding="24dp">
+
+    <!-- Main information -->
+    <TextView
+        android:id="@+id/text_bookDelete_title_bookshelf_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:fontFamily="@font/neuton_regular"
+        android:paddingStart="10dp"
+        android:text="@string/arey_you_sure_you_want_to_delete_book"
+        android:textAlignment="center"
+        android:textColor="#E57373"
+        android:textSize="25sp"
+        tools:ignore="RelativeOverlap,RtlSymmetry,TextContrastCheck" />
+
+    <!-- Second information -->
+    <TextView
+        android:id="@+id/text_databaseDelete_bottom_bookshelf_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/neuton_regular"
+        android:paddingStart="10dp"
+        android:text="@string/it_will_be_lost_forever"
+        android:textAlignment="center"
+        android:textColor="#E57373"
+        android:textSize="20sp"
+        tools:ignore="RelativeOverlap,RtlSymmetry,TextContrastCheck" />
+
+
+    <!-- Buttons -->
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="2">
+
+        <!-- Confirm button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bookDeleteConfirmButton"
+            android:fontFamily="@font/neuton_regular"
+            android:background="@drawable/rounded_button_background"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:text="@string/confirm"
+            android:textColor="#E57373"
+            tools:ignore="TextContrastCheck" />
+
+        <!-- Cancel button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bookDeleteCancelButton"
+            android:fontFamily="@font/neuton_regular"
+            android:background="@drawable/rounded_button_background"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/cancel"
+            android:textColor="#B58373"
+            tools:ignore="TextContrastCheck" />
+    </LinearLayout>
+</LinearLayout>

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -40,6 +42,19 @@ public class BookshelfActivity extends AppCompatActivity {
     private BookshelfItemAdapter adapter;
 
     /**
+     * Launcher for starting the BookshelfDetailActivity.
+     */
+    private final ActivityResultLauncher<Intent> editBookLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    bookshelfViewModel.refreshBooksData();
+                    adapter.updateBooks(new ArrayList<>(books));
+                }
+            }
+    );
+
+    /**
      * Called when the activity is starting. This is where most initialization should go.
      * This method sets up the user interface, handles window insets for system bars,
      *  and manages button clicks for navigation.
@@ -68,7 +83,10 @@ public class BookshelfActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new BookshelfItemAdapter(books, this, book->{
-
+            Intent intent = new Intent(BookshelfActivity.this, BookshelfDetailActivity.class);
+            intent.putExtra("book", book);
+            editBookLauncher.launch(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         });
 
         recyclerView.setAdapter(adapter);

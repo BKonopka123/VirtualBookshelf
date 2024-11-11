@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bookStatusChangeDialog"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/rounded_dialog_background"
+    android:gravity="center"
+    android:padding="24dp">
+
+    <!-- Place to insert new username -->
+
+
+    <!-- Buttons -->
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:weightSum="2">
+
+        <!--Read layout-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Change to read button -->
+            <ImageButton
+                android:id="@+id/editStatusBookRead"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/edit_book_status"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_status_read"
+                tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
+
+            <!-- Change to read text -->
+            <TextView
+                android:id="@+id/editStatusBookRead_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="20sp"
+                android:textColor="#BA8B7C"
+                android:fontFamily="@font/neuton_regular"
+                android:text="@string/read"
+                android:layout_toEndOf="@+id/editStatusBookRead"/>
+
+        </RelativeLayout>
+
+        <!--Unread layout-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Change to unread button -->
+            <ImageButton
+                android:id="@+id/editStatusBookUnread"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/edit_book_status"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_status_unread"
+                tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
+
+            <!-- Change to unread text -->
+            <TextView
+                android:id="@+id/editStatusBookUnread_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="20sp"
+                android:textColor="#BA8B7C"
+                android:fontFamily="@font/neuton_regular"
+                android:text="@string/unread"
+                android:layout_toEndOf="@+id/editStatusBookUnread"/>
+
+        </RelativeLayout>
+
+        <!-- Currently layout -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Change to currently button -->
+            <ImageButton
+                android:id="@+id/editStatusBookCurrently"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/edit_book_status"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_status_currently"
+                tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
+
+            <!-- Change to currently text -->
+            <TextView
+                android:id="@+id/editStatusBookCurrently_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="20sp"
+                android:textColor="#BA8B7C"
+                android:fontFamily="@font/neuton_regular"
+                android:text="@string/currently_being_read"
+                android:layout_toEndOf="@+id/editStatusBookCurrently"/>
+
+        </RelativeLayout>
+
+        <!-- Queue layout -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Change to queue button -->
+            <ImageButton
+                android:id="@+id/editStatusBookQueue"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/edit_book_status"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_status_queue"
+                tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
+
+            <!-- Change to queue text -->
+            <TextView
+                android:id="@+id/editStatusBookQueue_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="20sp"
+                android:textColor="#BA8B7C"
+                android:fontFamily="@font/neuton_regular"
+                android:text="@string/in_queue"
+                android:layout_toEndOf="@+id/editStatusBookQueue"/>
+
+        </RelativeLayout>
+
+        <!-- Cancel button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bookStatusCancelButton"
+            android:fontFamily="@font/neuton_regular"
+            android:background="@drawable/rounded_button_background"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/cancel"
+            android:textColor="#E57373"
+            tools:ignore="TextContrastCheck" />
+    </LinearLayout>
+</LinearLayout>

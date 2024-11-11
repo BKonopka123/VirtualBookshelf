@@ -19,6 +19,9 @@ import com.example.virtualbookshelf.model.User;
  */
 public class DBManager {
 
+    /** Singleton instance of DBManager */
+    private static DBManager instance;
+
     /** Instance of DBHelper to manage the database connection */
     private final DBHelper dbHelper;
 
@@ -36,6 +39,19 @@ public class DBManager {
     public DBManager(Context context) {
         dbHelper = DBHelper.getInstance(context);
         this.context = context.getApplicationContext();
+        open();
+    }
+
+    /**
+     * Get the singleton instance of the DBManager class.
+     * @param context Context of the application
+     * @return Singleton instance of the DBManager class
+     */
+    public static synchronized DBManager getInstance(Context context){
+        if(instance == null){
+            instance = new DBManager(context.getApplicationContext());
+        }
+        return instance;
     }
 
     /**
@@ -43,6 +59,7 @@ public class DBManager {
      */
     public void open() {
         database = dbHelper.getWritableDatabase();
+        Log.e("BaseViewModel", "Database opened");
     }
 
     /**
@@ -50,6 +67,7 @@ public class DBManager {
      */
     public void close() {
         dbHelper.close();
+        Log.e("BaseViewModel", "Database closed");
     }
 
     /**
@@ -163,6 +181,28 @@ public class DBManager {
         values.put("Is_added", book.getIsAdded());
 
         try {
+            Cursor cursorUser = getUserById(1);
+            if(cursorUser.moveToFirst()){
+                User user = new User(cursorUser.getInt(0), cursorUser.getString(1), cursorUser.getBlob(2), cursorUser.getInt(3), cursorUser.getInt(4), cursorUser.getInt(5), cursorUser.getInt(6), cursorUser.getInt(7));
+                cursorUser.close();
+                user.setBooksNumber(user.getBooksNumber() + 1);
+                switch (book.getStatus()) {
+                    case "Read":
+                        user.setBooksReadNumber(user.getBooksReadNumber() + 1);
+                        break;
+                    case "Unread":
+                        user.setBooksUnreadNumber(user.getBooksUnreadNumber() + 1);
+                        break;
+                    case "Currently":
+                        user.setBooksCurrentlyNumber(user.getBooksCurrentlyNumber() + 1);
+                        break;
+                    case "Queue":
+                        user.setBooksQueueNumber(user.getBooksQueueNumber() + 1);
+                        break;
+                }
+                updateUser(user);
+            }
+
             database.insert("Book", null, values);
         } catch (Exception e) {
             Log.e("DBManager", "Error inserting book - " + e.getMessage(), e);
@@ -219,6 +259,49 @@ public class DBManager {
         values.put("Is_added", book.getIsAdded());
 
         try {
+            Cursor cursorBook = getBookById(book.getId());
+            String bookBeforeUpdateStatus = "";
+            if(cursorBook.moveToFirst()){
+                Book bookBeforeUpdate = new Book(cursorBook.getInt(0), cursorBook.getInt(1), cursorBook.getInt(2), cursorBook.getString(3), cursorBook.getString(4), cursorBook.getBlob(5), cursorBook.getString(6), cursorBook.getString(7), cursorBook.getString(8), cursorBook.getString(9), cursorBook.getInt(10) > 0);
+                bookBeforeUpdateStatus = bookBeforeUpdate.getStatus();
+                cursorBook.close();
+            }
+
+            Cursor cursorUser = getUserById(1);
+            if(cursorUser.moveToFirst()){
+                User user = new User(cursorUser.getInt(0), cursorUser.getString(1), cursorUser.getBlob(2), cursorUser.getInt(3), cursorUser.getInt(4), cursorUser.getInt(5), cursorUser.getInt(6), cursorUser.getInt(7));
+                cursorUser.close();
+                switch (bookBeforeUpdateStatus) {
+                    case "Read":
+                        user.setBooksReadNumber(user.getBooksReadNumber() - 1);
+                        break;
+                    case "Unread":
+                        user.setBooksUnreadNumber(user.getBooksUnreadNumber() - 1);
+                        break;
+                    case "Currently":
+                        user.setBooksCurrentlyNumber(user.getBooksCurrentlyNumber() - 1);
+                        break;
+                    case "Queue":
+                        user.setBooksQueueNumber(user.getBooksQueueNumber() - 1);
+                        break;
+                }
+                switch (book.getStatus()) {
+                    case "Read":
+                        user.setBooksReadNumber(user.getBooksReadNumber() + 1);
+                        break;
+                    case "Unread":
+                        user.setBooksUnreadNumber(user.getBooksUnreadNumber() + 1);
+                        break;
+                    case "Currently":
+                        user.setBooksCurrentlyNumber(user.getBooksCurrentlyNumber() + 1);
+                        break;
+                    case "Queue":
+                        user.setBooksQueueNumber(user.getBooksQueueNumber() + 1);
+                        break;
+                }
+                updateUser(user);
+            }
+
             database.update("Book", values, "Book_id = ?", new String[]{String.valueOf(book.getId())});
         } catch (Exception e) {
             Log.e("DBManager", "Error updating book - " + e.getMessage(), e);
@@ -231,7 +314,30 @@ public class DBManager {
      * @param book Book object to be deleted
      */
     public void deleteBook(Book book) {
+
         try {
+            Cursor cursorUser = getUserById(1);
+            if(cursorUser.moveToFirst()){
+                User user = new User(cursorUser.getInt(0), cursorUser.getString(1), cursorUser.getBlob(2), cursorUser.getInt(3), cursorUser.getInt(4), cursorUser.getInt(5), cursorUser.getInt(6), cursorUser.getInt(7));
+                cursorUser.close();
+                user.setBooksNumber(user.getBooksNumber() - 1);
+                switch (book.getStatus()) {
+                    case "Read":
+                        user.setBooksReadNumber(user.getBooksReadNumber() - 1);
+                        break;
+                    case "Unread":
+                        user.setBooksUnreadNumber(user.getBooksUnreadNumber() - 1);
+                        break;
+                    case "Currently":
+                        user.setBooksCurrentlyNumber(user.getBooksCurrentlyNumber() - 1);
+                        break;
+                    case "Queue":
+                        user.setBooksQueueNumber(user.getBooksQueueNumber() - 1);
+                        break;
+                }
+                updateUser(user);
+            }
+
             database.delete("Book", "Book_id = ?", new String[]{String.valueOf(book.getId())});
         } catch (Exception e) {
             Log.e("DBManager", "Error deleting book - " + e.getMessage(), e);
@@ -332,11 +438,11 @@ public class DBManager {
                 user.setId(cursor_user.getInt(0));
                 user.setUsername(cursor_user.getString(1));
                 user.setProfilePhoto(cursor_user.getBlob(2));
-                user.setBooksNumber(5);
-                user.setBooksReadNumber(2);
-                user.setBooksUnreadNumber(1);
-                user.setBooksCurrentlyNumber(1);
-                user.setBooksQueueNumber(1);
+                user.setBooksNumber(0);
+                user.setBooksReadNumber(0);
+                user.setBooksUnreadNumber(0);
+                user.setBooksCurrentlyNumber(0);
+                user.setBooksQueueNumber(0);
                 updateUser(user);
                 cursor_user.close();
 

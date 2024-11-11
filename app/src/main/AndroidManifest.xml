@@ -30,6 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.BookshelfActivity" />
+        <activity android:name=".view.BookshelfDetailActivity"/>
         <activity android:name=".view.UserActivity" />
 <!--        <activity android:name=".view.MainPhotoHistoryActivity" />-->
         <activity android:name=".view.MainProcessImageActivity"/>

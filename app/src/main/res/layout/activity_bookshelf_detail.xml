@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bookshelf_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.BookshelfDetailActivity">
+
+    <!-- Upper part -->
+    <RelativeLayout
+        android:id="@+id/upperLayout_bookshelf_detail"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#F4D9C8"
+        android:padding="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Logo button with navigation to main activity -->
+        <ImageButton
+            android:id="@+id/mainButton_bookshelf_detail"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/bookshelf_icon"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_bookshelf"
+            tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck,TouchTargetSizeCheck" />
+
+        <!-- App name -->
+        <TextView
+            android:id="@+id/text_title_bookshelf_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_toEndOf="@+id/mainButton_bookshelf_detail"
+            android:fontFamily="@font/neuton_regular"
+            android:paddingStart="8dp"
+            android:layout_centerVertical="true"
+            android:text="@string/app_name"
+            android:textColor="#BA8B7C"
+            android:textSize="25sp"
+            tools:ignore="RelativeOverlap,RtlSymmetry,TextContrastCheck" />
+
+        <!-- Logo button with navigation to user activity -->
+        <ImageButton
+            android:id="@+id/userButton_bookshelf_detail"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/user_icon"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_user"
+            app:tint="#BA8B7C"
+            tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
+    </RelativeLayout>
+
+    <!-- Middle Part -->
+    <LinearLayout
+            android:id="@+id/middleLayout_bookshelf_detail"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#FFF6F2"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/upperLayout_bookshelf_detail"
+            app:layout_constraintBottom_toTopOf="@id/bottomLayout_bookshelf_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:fillViewport="true">
+
+            <!--Go back Layout-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Go back button -->
+                <ImageButton
+                    android:id="@+id/backButton_bookshelf_detail"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="12dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/go_back_to_main_activity"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_button_back"
+                    app:tint="#BA8B7C"
+                    tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
+
+            </RelativeLayout>
+
+            <!--Main informations layout-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--Book image-->
+                <ImageView
+                    android:id="@+id/book_image_bookshelf_detail"
+                    android:layout_width="128dp"
+                    android:layout_height="128dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="20dp"
+                    android:contentDescription="@string/book_image"
+                    android:visibility="visible"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_book_start"/>
+
+                <!--Book title-->
+                <TextView
+                    android:id="@+id/book_title_bookshelf_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:textSize="28sp"
+                    android:textColor="#BA8B7C"
+                    android:fontFamily="@font/neuton_regular"
+                    android:text="@string/nulll"
+                    android:layout_toEndOf="@+id/book_image_bookshelf_detail"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    android:maxEms="10"/>
+
+                <!--Book author-->
+                <TextView
+                    android:id="@+id/book_author_bookshelf_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="20sp"
+                    android:textColor="#BA8B7C"
+                    android:fontFamily="@font/neuton_regular"
+                    android:text="@string/nulll"
+                    android:layout_toEndOf="@+id/book_image_bookshelf_detail"
+                    android:layout_below="@+id/book_title_bookshelf_detail"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    android:maxEms="10"/>
+
+                <!--Book status image-->
+                <ImageView
+                    android:id="@+id/status_image_bookshelf_detail"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center"
+                    android:layout_toEndOf="@+id/book_image_bookshelf_detail"
+                    android:layout_below="@+id/book_author_bookshelf_detail"/>
+
+                <!--Book status change icon-->
+                <ImageButton
+                    android:id="@+id/editStatusBook_bookshelf_detail"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="12dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/edit_book_status"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_edit"
+                    app:tint="#BA8B7C"
+                    android:layout_toEndOf="@+id/status_image_bookshelf_detail"
+                    android:layout_below="@+id/book_author_bookshelf_detail"
+                    tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
+
+            </RelativeLayout>
+
+            <!--Imformations layout-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--Drcription tag-->
+                <TextView
+                    android:id="@+id/book_description_bookshelf_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="24dp"
+                    android:textSize="20sp"
+                    android:textColor="#BA8B7C"
+                    android:fontFamily="@font/neuton_regular"
+                    android:text="@string/description" />
+
+                <!--Description-->
+                <TextView
+                    android:id="@+id/book_description_text_bookshelf_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="24dp"
+                    android:textSize="15sp"
+                    android:textColor="#BA8B7C"
+                    android:fontFamily="@font/neuton_regular"
+                    android:text="@string/nulll"
+                    android:layout_below="@+id/book_description_bookshelf_detail"/>
+
+                <!--Genre tag-->
+                <TextView
+                    android:id="@+id/book_genre_bookshelf_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="24dp"
+                    android:textSize="20sp"
+                    android:textColor="#BA8B7C"
+                    android:fontFamily="@font/neuton_regular"
+                    android:text="@string/genre"
+                    android:layout_below="@+id/book_description_text_bookshelf_detail"/>
+
+                <!--Genre-->
+                <TextView
+                    android:id="@+id/book_genre_text_bookshelf_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="24dp"
+                    android:textSize="15sp"
+                    android:textColor="#BA8B7C"
+                    android:fontFamily="@font/neuton_regular"
+                    android:text="@string/nulll"
+                    android:layout_below="@+id/book_genre_bookshelf_detail"
+                    android:maxLines="1"/>
+
+                <!--Date tag-->
+                <TextView
+                    android:id="@+id/book_date_bookshelf_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="24dp"
+                    android:textSize="20sp"
+                    android:textColor="#BA8B7C"
+                    android:fontFamily="@font/neuton_regular"
+                    android:text="@string/date"
+                    android:layout_below="@+id/book_genre_text_bookshelf_detail"/>
+
+                <!--Date-->
+                <TextView
+                    android:id="@+id/book_date_text_bookshelf_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="24dp"
+                    android:textSize="15sp"
+                    android:textColor="#BA8B7C"
+                    android:fontFamily="@font/neuton_regular"
+                    android:text="@string/nulll"
+                    android:layout_below="@+id/book_date_bookshelf_detail"
+                    android:maxLines="1"/>
+
+            </RelativeLayout>
+
+            <!--Delete book layout-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--Delete book-->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/deleteBook_button_bookshelf_detail"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/rounded_button_background"
+                    android:fontFamily="@font/neuton_regular"
+                    android:text="@string/delete_book"
+                    android:textColor="#E57373"
+                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            </RelativeLayout>
+
+    </LinearLayout>
+
+    <!-- Lower part -->
+    <LinearLayout
+        android:id="@+id/bottomLayout_bookshelf_detail"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:background="#F4D9C8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Logo button with navigation to main activity -->
+        <ImageButton
+            android:id="@+id/cameraButton_bookshelf_detail"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/camera_icon"
+            android:padding="16dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_camera"
+            app:tint="#BA8B7C"
+            tools:ignore="ImageContrastCheck" />
+
+        <!-- Logo button with navigation to bookshelf activity -->
+        <ImageButton
+            android:id="@+id/bookshelfButton_bookshelf_detail"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/bookshelf_icon"
+            android:padding="16dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_bookshelf"
+            app:tint="#BA8B7C"
+            tools:ignore="ImageContrastCheck" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

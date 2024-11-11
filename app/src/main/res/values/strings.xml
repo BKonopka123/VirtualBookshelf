@@ -28,4 +28,17 @@
     <string name="open_camera_and_take_a_photo">Open camera and take a photo!</string>
     <string name="found_books">Found books:</string>
     <string name="no_books_could_be_found">No books could be found :(</string>
+    <string name="book_image">book image</string>
+    <string name="nulll">null</string>
+    <string name="description">Description:</string>
+    <string name="genre">Genre:</string>
+    <string name="date">Date:</string>
+    <string name="edit_book_status">edit book status</string>
+    <string name="delete_book">Delete book</string>
+    <string name="arey_you_sure_you_want_to_delete_book">Arey you sure you want to delete book?</string>
+    <string name="it_will_be_lost_forever">(It will be lost forever)</string>
+    <string name="read">Read</string>
+    <string name="unread">Unread</string>
+    <string name="currently_being_read">Currently being read</string>
+    <string name="in_queue">In queue</string>
 </resources>

@@ -23,7 +23,10 @@
         android:textSize="15sp"
         android:textColor="#BA8B7C"
         android:fontFamily="@font/neuton_regular"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:maxEms="7"/>
 
     <!--Pause-->
     <TextView
@@ -44,7 +47,10 @@
         android:textSize="15sp"
         android:textColor="#BA8B7C"
         android:fontFamily="@font/neuton_regular"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:maxEms="7"/>
 
     <!--Filler-->
     <View

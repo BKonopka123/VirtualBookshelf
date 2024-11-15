@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bookDateChangeDialog_found"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/rounded_dialog_background"
+    android:gravity="center"
+    android:padding="24dp">
+
+    <!-- Place to insert new book date -->
+    <EditText
+        android:id="@+id/bookDateEditText_found"
+        android:fontFamily="@font/neuton_regular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:autofillHints="new book date"
+        android:background="@drawable/rounded_button_background"
+        android:hint="@string/new_book_date"
+        android:inputType="date"
+        android:padding="12dp"
+        android:textAlignment="center"
+        android:textColorHint="#B58373"
+        android:textColor="#B58373"
+        tools:ignore="TextContrastCheck" />
+
+    <!-- Buttons -->
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="2">
+
+        <!-- Confirm button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bookDateConfirmButton_found"
+            android:fontFamily="@font/neuton_regular"
+            android:background="@drawable/rounded_button_background"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:text="@string/confirm"
+            android:textColor="#B58373"
+            tools:ignore="TextContrastCheck" />
+
+        <!-- Cancel button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bookDateCancelButton_found"
+            android:fontFamily="@font/neuton_regular"
+            android:background="@drawable/rounded_button_background"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/cancel"
+            android:textColor="#E57373"
+            tools:ignore="TextContrastCheck" />
+    </LinearLayout>
+</LinearLayout>

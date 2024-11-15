@@ -62,59 +62,53 @@
     </RelativeLayout>
 
     <!-- Middle Part -->
-    <LinearLayout
-        android:id="@+id/middleLayout_main_found_books"
-        android:layout_width="0dp"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#FFF6F2"
-        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/upperLayout_main_found_books"
-        app:layout_constraintBottom_toTopOf="@id/bottomLayout_main_found_books"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:fillViewport="true">
+        app:layout_constraintBottom_toTopOf="@id/bottomLayout_main_found_books">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/middleLayout_main_found_books"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:background="#FFF6F2"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <!-- Information text -->
             <TextView
                 android:id="@+id/text_Info_main_found_books"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="9dp"
                 android:fontFamily="@font/neuton_regular"
                 android:paddingStart="8dp"
-                android:layout_centerVertical="true"
                 android:text="@string/found_books"
                 android:textColor="#BA8B7C"
                 android:textSize="20sp"
-                tools:ignore="RelativeOverlap,RtlSymmetry,TextContrastCheck" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlSymmetry,TextContrastCheck" />
 
             <!-- Go back button -->
             <ImageButton
                 android:id="@+id/backButton_main_found_books"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
                 android:layout_margin="12dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/go_back_to_main_activity"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_button_back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:tint="#BA8B7C"
-                tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
 
             <!-- No found books text -->
             <TextView
@@ -125,13 +119,43 @@
                 android:textColor="#BA8B7C"
                 android:textSize="20sp"
                 android:fontFamily="@font/neuton_regular"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="24dp"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/text_Info_main_found_books"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-        </RelativeLayout>
+            <!-- Books list -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_main_found_books"
+                android:layout_marginTop="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="#FFF6F2"
+                app:layout_constraintTop_toBottomOf="@id/text_noBooks_main_found_books"
+                app:layout_constraintBottom_toTopOf="@id/addToDatabase_button_bookshelf_detail"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="visible"/>
 
-        </LinearLayout>
+            <!-- Add to database button -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/addToDatabase_button_bookshelf_detail"
+                android:layout_width="200dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/rounded_button_background"
+                android:fontFamily="@font/neuton_regular"
+                android:text="@string/add_books_to_database"
+                android:textColor="#AF7B6E"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recyclerView_main_found_books"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck,TextSizeCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <!-- Lower part -->
     <LinearLayout

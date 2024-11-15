@@ -56,7 +56,10 @@ public class RetrofitManager {
         foundBooks.clear();
         AtomicInteger completedRequests = new AtomicInteger(0);
         for (int i = 0; i < foundTitles.size(); i++) {
-            callApi(foundTitles.get(i).getFoundText(), i, callback, completedRequests);
+            if(i <= 20)
+                callApi(foundTitles.get(i).getFoundText(), i, callback, completedRequests);
+            else
+                break;
         }
     }
 
@@ -133,7 +136,6 @@ public class RetrofitManager {
     }
 
 
-    //TODO: check if it works
     /**
      * Method to check if the book is valid - whether no garbage was found, or whether the book was not found after the author/publisher
      * @param foundObject book
@@ -147,11 +149,13 @@ public class RetrofitManager {
         String foundTitleGarbage = foundObject.getTitle();
         if (foundTextGarbage == null || foundTitleGarbage == null)
             return false;
+        foundTextGarbage = foundTextGarbage.toLowerCase();
+        foundTitleGarbage = foundTitleGarbage.toLowerCase();
         int distanceGarbage = levenshtein.apply(foundTextGarbage, foundTitleGarbage);
         int strLengthGarbage = Math.max(foundTextGarbage.length(), foundTitleGarbage.length());
         float factorGarbage = (float) distanceGarbage / (float) strLengthGarbage;
 
-        if(factorGarbage >= 0.9) {
+        if(factorGarbage >= 0.85) {
             Log.d("RetrofitManager", "------------------------");
             Log.d("RetrofitManager", "Found garbage: " + foundTextGarbage + " - " + foundTitleGarbage + " % " + factorGarbage);
             Log.d("RetrofitManager", "------------------------");
@@ -168,11 +172,13 @@ public class RetrofitManager {
             return true;
         if (foundPublisher == null)
             return true;
+        foundTextAuthorPublisher = foundTextAuthorPublisher.toLowerCase();
+        foundPublisher = foundPublisher.toLowerCase();
         int distancePublisher = levenshtein.apply(foundTextAuthorPublisher, foundPublisher);
         int strLengthPublisher = Math.max(foundTextAuthorPublisher.length(), foundPublisher.length());
         float factorPublisher = (float) distancePublisher / (float) strLengthPublisher;
 
-        if(factorPublisher <= 0.4) {
+        if(factorPublisher <= 0.45) {
             Log.d("RetrofitManager", "------------------------");
             Log.d("RetrofitManager", "Found publisher: " + foundTextAuthorPublisher + " - " + foundPublisher + " - " + foundTitleGarbage + " % " + factorPublisher);
             Log.d("RetrofitManager", "------------------------");
@@ -181,10 +187,11 @@ public class RetrofitManager {
 
 
         for (String author : foundAuthor) {
+            author = author.toLowerCase();
             int distanceAuthor = levenshtein.apply(foundTextAuthorPublisher, author);
             int strLengthAuthor = Math.max(foundTextAuthorPublisher.length(), author.length());
             float factorAuthor = (float) distanceAuthor / (float) strLengthAuthor;
-            if(factorAuthor <= 0.4) {
+            if(factorAuthor <= 0.45) {
                 Log.d("RetrofitManager", "------------------------");
                 Log.d("RetrofitManager", "Found author: " + foundTextAuthorPublisher + " - " + author + " - " + foundTitleGarbage + " % " + factorAuthor);
                 Log.d("RetrofitManager", "------------------------");

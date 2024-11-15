@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.Log;
 
@@ -77,8 +78,20 @@ public class TesseractManager {
 
         processImage();
 
-        tessBaseAPI.setImage(photo);
-        String foundText = tessBaseAPI.getUTF8Text();
+        Bitmap photo0degrees = rotateBitmap(photo, 0);
+        Bitmap photo90degrees = rotateBitmap(photo, 90);
+        Bitmap photo180degrees = rotateBitmap(photo, 180);
+        Bitmap photo270degrees = rotateBitmap(photo, 270);
+
+        tessBaseAPI.setImage(photo0degrees);
+        String foundText0degrees = tessBaseAPI.getUTF8Text();
+        tessBaseAPI.setImage(photo90degrees);
+        String foundText90degrees = tessBaseAPI.getUTF8Text();
+        tessBaseAPI.setImage(photo180degrees);
+        String foundText180degrees = tessBaseAPI.getUTF8Text();
+        tessBaseAPI.setImage(photo270degrees);
+        String foundText270degrees = tessBaseAPI.getUTF8Text();
+        String foundText = foundText0degrees + "\n" + foundText90degrees + "\n" + foundText180degrees + "\n" + foundText270degrees;
 
         splitFoundText(foundText, foundObjectsList);
 
@@ -151,6 +164,7 @@ public class TesseractManager {
         tessBaseAPI.setVariable("tessedit_char_whitelist", "AĄBCĆDEĘFGHIJKLŁMNŃOÓPQRSŚTUVWXYZŻŹaąbcćdeęfghijklłmnoópqrsśtuvwxyzżź ");
         tessBaseAPI.setVariable("user_defined_dpi", "300");
         tessBaseAPI.setVariable("min_characters_to_try", "3");
+        tessBaseAPI.setPageSegMode(TessBaseAPI.PageSegMode.PSM_AUTO_OSD);
     }
 
     /**
@@ -342,5 +356,17 @@ public class TesseractManager {
         } catch(Exception e) {
             Log.e("TesseractManager", "Error creating miniature - " + e.getMessage(), e);
         }
+    }
+
+    /**
+     * Rotates the bitmap.
+     * @param bitmap Bitmap to be rotated.
+     * @param degree Degree of rotation.
+     * @return Rotated bitmap.
+     */
+    public Bitmap rotateBitmap(Bitmap bitmap, int degree) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 }

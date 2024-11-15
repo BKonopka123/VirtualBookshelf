@@ -152,6 +152,7 @@ public class MainProcessImageActivity extends AppCompatActivity {
         mainProcessImageViewModel.getFoundBooksLiveData().observe(this, new Observer<ArrayList<FoundObject>>() {
             @Override
             public void onChanged(ArrayList<FoundObject> foundBooks) {
+                mainProcessImageViewModel.deleteDuplicates(foundBooks);
                 Intent intent = new Intent(MainProcessImageActivity.this, MainFoundBooksActivity.class);
                 intent.putExtra("foundBooks", foundBooks);
                 startActivity(intent);

@@ -5,11 +5,11 @@
     android:id="@+id/bookshelf_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.BookshelfDetailActivity">
+    tools:context=".view.BookFoundDetailActivity">
 
     <!-- Upper part -->
     <RelativeLayout
-        android:id="@+id/upperLayout_bookshelf_detail"
+        android:id="@+id/upperLayout_book_found_detail"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="#F4D9C8"
@@ -20,7 +20,7 @@
 
         <!-- Logo button with navigation to main activity -->
         <ImageButton
-            android:id="@+id/mainButton_bookshelf_detail"
+            android:id="@+id/mainButton_book_found_detail"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_alignParentStart="true"
@@ -33,11 +33,11 @@
 
         <!-- App name -->
         <TextView
-            android:id="@+id/text_title_bookshelf_detail"
+            android:id="@+id/text_title_book_found_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
-            android:layout_toEndOf="@+id/mainButton_bookshelf_detail"
+            android:layout_toEndOf="@+id/mainButton_book_found_detail"
             android:fontFamily="@font/neuton_regular"
             android:paddingStart="8dp"
             android:layout_centerVertical="true"
@@ -48,7 +48,7 @@
 
         <!-- Logo button with navigation to user activity -->
         <ImageButton
-            android:id="@+id/userButton_bookshelf_detail"
+            android:id="@+id/userButton_book_found_detail"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_alignParentEnd="true"
@@ -63,13 +63,13 @@
 
     <!-- Middle Part -->
     <LinearLayout
-            android:id="@+id/middleLayout_bookshelf_detail"
+            android:id="@+id/middleLayout_book_found_detail"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="#FFF6F2"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/upperLayout_bookshelf_detail"
-            app:layout_constraintBottom_toTopOf="@id/bottomLayout_bookshelf_detail"
+            app:layout_constraintTop_toBottomOf="@id/upperLayout_book_found_detail"
+            app:layout_constraintBottom_toTopOf="@id/bottomLayout_book_found_detail"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:fillViewport="true">
@@ -81,7 +81,7 @@
 
                 <!-- Go back button -->
                 <ImageButton
-                    android:id="@+id/backButton_bookshelf_detail"
+                    android:id="@+id/backButton_book_found_detail"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_alignParentTop="true"
@@ -98,19 +98,19 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp">
 
-                <!-- Book image -->
+                <!-- Book Image -->
                 <ImageView
-                    android:id="@+id/book_image_bookshelf_detail"
+                    android:id="@+id/book_image_book_found_detail"
                     android:layout_width="128dp"
                     android:layout_height="128dp"
-                    android:layout_marginTop="12dp"
                     android:contentDescription="@string/book_image"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_book_start"
@@ -118,103 +118,147 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ImageContrastCheck" />
 
-                <!-- Book title -->
+                <!-- Book Title -->
                 <TextView
-                    android:id="@+id/book_title_bookshelf_detail"
+                    android:id="@+id/book_title_book_found_detail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="10dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/neuton_regular"
                     android:maxEms="10"
                     android:maxLines="3"
                     android:text="@string/nulll"
                     android:textColor="#BA8B7C"
-                    android:textSize="28sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/book_image_bookshelf_detail"
-                    app:layout_constraintTop_toTopOf="@id/book_image_bookshelf_detail"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toStartOf="@id/editTitleBook_book_found_detail"
+                    app:layout_constraintStart_toEndOf="@id/book_image_book_found_detail"
+                    app:layout_constraintTop_toTopOf="@+id/book_image_book_found_detail"
                     tools:ignore="TextContrastCheck" />
+
+                <!-- Edit Title Button -->
+                <ImageButton
+                    android:id="@+id/editTitleBook_book_found_detail"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/edit_book_title"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_edit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/book_title_book_found_detail"
+                    app:tint="#BA8B7C"
+                    tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
 
                 <!-- Book Author -->
                 <TextView
-                    android:id="@+id/book_author_bookshelf_detail"
+                    android:id="@+id/book_author_book_found_detail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/neuton_regular"
                     android:maxEms="10"
                     android:maxLines="3"
                     android:text="@string/nulll"
                     android:textColor="#BA8B7C"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/book_image_bookshelf_detail"
-                    app:layout_constraintTop_toBottomOf="@id/book_title_bookshelf_detail"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@id/editAuthorBook_book_found_detail"
+                    app:layout_constraintStart_toEndOf="@id/book_image_book_found_detail"
+                    app:layout_constraintTop_toBottomOf="@id/book_title_book_found_detail"
                     tools:ignore="TextContrastCheck" />
 
-                <!-- Book status image -->
-                <ImageView
-                    android:id="@+id/status_image_bookshelf_detail"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:scaleType="fitXY"
-                    app:layout_constraintStart_toEndOf="@id/book_image_bookshelf_detail"
-                    app:layout_constraintTop_toBottomOf="@id/book_author_bookshelf_detail"
-                    tools:ignore="ContentDescription" />
-
-                <!-- Book status edit -->
+                <!-- Edit Author Button -->
                 <ImageButton
-                    android:id="@+id/editStatusBook_bookshelf_detail"
+                    android:id="@+id/editAuthorBook_book_found_detail"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/edit_book_author"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_edit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/book_author_book_found_detail"
+                    app:tint="#BA8B7C"
+                    tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
+
+                <!-- Book Status Image -->
+                <ImageView
+                    android:id="@+id/status_image_book_found_detail"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginStart="10dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toBottomOf="@id/book_author_book_found_detail"
+                    app:layout_constraintStart_toEndOf="@id/book_image_book_found_detail"
+                    tools:ignore="ContentDescription" />
+
+                <!-- Edit Status Button -->
+                <ImageButton
+                    android:id="@+id/editStatusBook_book_found_detail"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="8dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/edit_book_status"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_edit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/status_image_book_found_detail"
                     app:tint="#BA8B7C"
-                    app:layout_constraintStart_toEndOf="@id/status_image_bookshelf_detail"
-                    app:layout_constraintTop_toBottomOf="@id/book_author_bookshelf_detail"
-                    tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
+                    tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
 
-                <!-- Description section -->
+                <!-- Description Tag -->
                 <TextView
-                    android:id="@+id/book_description_bookshelf_detail"
+                    android:id="@+id/book_description_book_found_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="18dp"
                     android:fontFamily="@font/neuton_regular"
                     android:text="@string/description"
                     android:textColor="#BA8B7C"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/status_image_bookshelf_detail"
+                    app:layout_constraintTop_toBottomOf="@id/status_image_book_found_detail"
                     tools:ignore="TextContrastCheck" />
 
+                <!-- Edit Description Button -->
+                <ImageButton
+                    android:id="@+id/editDescriptionBook_book_found_detail"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/edit_book_description"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_edit"
+                    app:layout_constraintStart_toEndOf="@id/book_description_book_found_detail"
+                    app:layout_constraintTop_toTopOf="@id/book_description_book_found_detail"
+                    app:tint="#BA8B7C"
+                    tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
+
+                <!-- Book Description Text -->
                 <TextView
-                    android:id="@+id/book_description_text_bookshelf_detail"
+                    android:id="@+id/book_description_text_book_found_detail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/neuton_regular"
                     android:text="@string/nulll"
                     android:textColor="#BA8B7C"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/book_description_bookshelf_detail"
-                    app:layout_constraintTop_toBottomOf="@id/book_description_bookshelf_detail"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/book_description_book_found_detail"
                     tools:ignore="TextContrastCheck" />
 
-                <!-- Genre section -->
+                <!-- Genre Tag -->
                 <TextView
-                    android:id="@+id/book_genre_bookshelf_detail"
+                    android:id="@+id/book_genre_book_found_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -223,26 +267,42 @@
                     android:textColor="#BA8B7C"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/book_description_text_bookshelf_detail"
+                    app:layout_constraintTop_toBottomOf="@id/book_description_text_book_found_detail"
                     tools:ignore="TextContrastCheck" />
 
+                <!-- Edit Genre Button -->
+                <ImageButton
+                    android:id="@+id/editGenreBook_book_found_detail"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/edit_book_genre"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_edit"
+                    app:layout_constraintStart_toEndOf="@id/book_genre_book_found_detail"
+                    app:layout_constraintTop_toTopOf="@id/book_genre_book_found_detail"
+                    app:tint="#BA8B7C"
+                    tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
+
+                <!-- Book Genre Text -->
                 <TextView
-                    android:id="@+id/book_genre_text_bookshelf_detail"
+                    android:id="@+id/book_genre_text_book_found_detail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/neuton_regular"
                     android:text="@string/nulll"
                     android:textColor="#BA8B7C"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/book_genre_bookshelf_detail"
-                    app:layout_constraintTop_toBottomOf="@id/book_genre_bookshelf_detail"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/book_genre_book_found_detail"
                     tools:ignore="TextContrastCheck" />
 
-                <!-- Date section -->
+                <!-- Date Tag -->
                 <TextView
-                    android:id="@+id/book_date_bookshelf_detail"
+                    android:id="@+id/book_date_book_found_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -251,37 +311,38 @@
                     android:textColor="#BA8B7C"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/book_genre_text_bookshelf_detail"
+                    app:layout_constraintTop_toBottomOf="@id/book_genre_text_book_found_detail"
                     tools:ignore="TextContrastCheck" />
 
+                <!-- Edit Date Button -->
+                <ImageButton
+                    android:id="@+id/editDateBook_book_found_detail"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/edit_book_date"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_edit"
+                    app:layout_constraintStart_toEndOf="@id/book_date_book_found_detail"
+                    app:layout_constraintTop_toTopOf="@id/book_date_book_found_detail"
+                    app:tint="#BA8B7C"
+                    tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
+
+                <!-- Book Date Text -->
                 <TextView
-                    android:id="@+id/book_date_text_bookshelf_detail"
+                    android:id="@+id/book_date_text_book_found_detail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/neuton_regular"
                     android:text="@string/nulll"
                     android:textColor="#BA8B7C"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/book_date_bookshelf_detail"
-                    app:layout_constraintTop_toBottomOf="@id/book_date_bookshelf_detail"
-                    tools:ignore="TextContrastCheck" />
-
-                <!-- Delete book button -->
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/deleteBook_button_bookshelf_detail"
-                    android:layout_width="150dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="24dp"
-                    android:background="@drawable/rounded_button_background"
-                    android:fontFamily="@font/neuton_regular"
-                    android:text="@string/delete_book"
-                    android:textColor="#E57373"
-                    app:layout_constraintTop_toBottomOf="@id/book_date_text_bookshelf_detail"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck"/>
+                    app:layout_constraintTop_toBottomOf="@id/book_date_book_found_detail"
+                    tools:ignore="TextContrastCheck" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
@@ -291,7 +352,7 @@
 
     <!-- Lower part -->
     <LinearLayout
-        android:id="@+id/bottomLayout_bookshelf_detail"
+        android:id="@+id/bottomLayout_book_found_detail"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:orientation="horizontal"
@@ -302,7 +363,7 @@
 
         <!-- Logo button with navigation to main activity -->
         <ImageButton
-            android:id="@+id/cameraButton_bookshelf_detail"
+            android:id="@+id/cameraButton_book_found_detail"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -316,7 +377,7 @@
 
         <!-- Logo button with navigation to bookshelf activity -->
         <ImageButton
-            android:id="@+id/bookshelfButton_bookshelf_detail"
+            android:id="@+id/bookshelfButton_book_found_detail"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

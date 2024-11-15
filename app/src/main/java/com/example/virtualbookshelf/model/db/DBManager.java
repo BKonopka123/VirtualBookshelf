@@ -59,7 +59,6 @@ public class DBManager {
      */
     public void open() {
         database = dbHelper.getWritableDatabase();
-        Log.e("BaseViewModel", "Database opened");
     }
 
     /**
@@ -67,7 +66,6 @@ public class DBManager {
      */
     public void close() {
         dbHelper.close();
-        Log.e("BaseViewModel", "Database closed");
     }
 
     /**

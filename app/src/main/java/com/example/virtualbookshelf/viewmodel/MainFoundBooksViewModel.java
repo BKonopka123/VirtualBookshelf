@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.virtualbookshelf.R;
 import com.example.virtualbookshelf.model.BlobManager;
 import com.example.virtualbookshelf.model.Book;
@@ -29,6 +32,11 @@ public class MainFoundBooksViewModel extends MainViewModel {
     private final Context context;
 
     /**
+     * LiveData to indicate when to add books to database.
+     */
+    protected final MutableLiveData<Boolean> addBooksToDatabaseData = new MutableLiveData<>();
+
+    /**
      //     * Constructor for MainPhotoHistoryViewModel.
      //     * @param application The application context.
      //     */
@@ -36,6 +44,22 @@ public class MainFoundBooksViewModel extends MainViewModel {
         super(application);
         this.context = application.getApplicationContext();
     }
+
+    /**
+     * Sets the LiveData to add books to database.
+     */
+    public void onAddBooksToDatabaseDataClicked() { addBooksToDatabaseData.setValue(true); }
+
+    /**
+     * Gets the LiveData to add books to database.
+     * @return LiveData to add books to database.
+     */
+    public LiveData<Boolean> getAddBooksToDatabaseData() { return addBooksToDatabaseData; }
+
+    /**
+     * Resets the LiveData to add books to database.
+     */
+    public void resetAddBooksToDatabaseData() { addBooksToDatabaseData.setValue(false); }
 
     /**
      * Converts found objects to books.
@@ -115,5 +139,49 @@ public class MainFoundBooksViewModel extends MainViewModel {
             Log.d("MainFoundBooksActivity", "Book status: " + book.getStatus());
             Log.d("MainFoundBooksActivity", "Book isAdded: " + book.getIsAdded());
         }
+    }
+
+    /**
+     * Checks if a book is already in the database.
+     * @param books List of books.
+     */
+    public void checkIsAddedBook(ArrayList<Book> books) {
+        Cursor cursor_books = dbManager.getAllBooks();
+        ArrayList<Book> booksInDatabase = new ArrayList<>();
+        try {
+            for (cursor_books.moveToFirst(); !cursor_books.isAfterLast(); cursor_books.moveToNext()) {
+                Book bookInDatabase = new Book(cursor_books.getInt(0), cursor_books.getInt(1), cursor_books.getInt(2), cursor_books.getString(3), cursor_books.getString(4), cursor_books.getBlob(5), cursor_books.getString(6), cursor_books.getString(7), cursor_books.getString(8), cursor_books.getString(9), cursor_books.getInt(10) > 0);
+                booksInDatabase.add(bookInDatabase);
+            }
+            cursor_books.close();
+        } catch(Exception e) {
+            Log.e("BookshelfViewModel", e.getMessage(), e);
+        }
+        for (Book book : books) {
+            for (Book bookInDatabase : booksInDatabase) {
+                if (book.getTitle().equals(bookInDatabase.getTitle()) && book.getAuthor().equals(bookInDatabase.getAuthor())) {
+                    book.setIsAdded(true);
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * Adds books to database.
+     * @param books List of books.
+     * @param photo Photo.
+     */
+    public void addBooksToDatabase(ArrayList<Book> books, Photo photo) {
+        photo.setPhotoNumber(0);
+        int counter = 0;
+        for (Book book : books) {
+            if (!book.getIsAdded()) {
+                dbManager.insertBook(book);
+                counter++;
+            }
+        }
+        photo.setPhotoNumber(counter);
+        dbManager.insertPhoto(photo);
     }
 }

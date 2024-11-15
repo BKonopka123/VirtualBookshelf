@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -184,6 +185,21 @@ public class MainProcessImageViewModel extends MainViewModel {
                 foundBooksLiveData.postValue(new ArrayList<>());
             }
         });
+    }
+
+    /**
+     * Delete duplicates.
+     * @param foundBooks List of found books.
+     */
+    public void deleteDuplicates(ArrayList<FoundObject> foundBooks){
+        for(int i = 0; i < foundBooks.size(); i++){
+            for(int j = i + 1; j < foundBooks.size(); j++) {
+                if (foundBooks.get(i).getTitle().equalsIgnoreCase(foundBooks.get(j).getTitle()) && TextUtils.join(", ", foundBooks.get(i).getAuthors()).equalsIgnoreCase(TextUtils.join(", ", foundBooks.get(j).getAuthors()))) {
+                    foundBooks.remove(j);
+                    j--;
+                }
+            }
+        }
     }
 }
 

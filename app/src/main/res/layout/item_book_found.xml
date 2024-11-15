@@ -6,11 +6,11 @@
     android:orientation="horizontal"
     android:padding="8dp"
     android:background="#FFF6F2"
-    android:id="@+id/item_bookshelf">
+    android:id="@+id/item_found">
 
     <!--Book Icon-->
     <ImageView
-        android:id="@+id/book_image_item_bookshelf"
+        android:id="@+id/book_image_item_book_found"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginEnd="8dp"
@@ -19,7 +19,7 @@
 
     <!--Book author -->
     <TextView
-        android:id="@+id/book_author_item_bookshelf"
+        android:id="@+id/book_author_item_book_found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15sp"
@@ -32,7 +32,7 @@
 
     <!--Pause-->
     <TextView
-        android:id="@+id/pause_item_bookshelf"
+        android:id="@+id/pause_item_book_found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -44,7 +44,7 @@
 
     <!--Book Title-->
     <TextView
-        android:id="@+id/book_title_item_bookshelf"
+        android:id="@+id/book_title_item_book_found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15sp"
@@ -61,13 +61,14 @@
         android:layout_height="64dp"
         android:layout_weight="1" />
 
-    <!--Status Image-->
-    <ImageView
-        android:id="@+id/status_image_item_bookshelf"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginEnd="8dp"
-        android:contentDescription="@string/status_image"
-        android:scaleType="centerCrop"
-        android:layout_gravity="center" />
+    <!--Will be added button-->
+    <ImageButton
+        android:id="@+id/isAdded_imageButton_item_book_found"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/isadded_button"
+        android:scaleType="fitXY"
+        tools:ignore="TouchTargetSizeCheck" />
 </LinearLayout>

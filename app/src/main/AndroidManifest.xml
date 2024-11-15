@@ -35,6 +35,7 @@
 <!--        <activity android:name=".view.MainPhotoHistoryActivity" />-->
         <activity android:name=".view.MainProcessImageActivity"/>
         <activity android:name=".view.MainFoundBooksActivity"/>
+        <activity android:name=".view.BookFoundDetailActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

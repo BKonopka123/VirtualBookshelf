@@ -41,4 +41,18 @@
     <string name="unread">Unread</string>
     <string name="currently_being_read">Currently being read</string>
     <string name="in_queue">In queue</string>
+    <string name="isadded_button">isAdded_button</string>
+    <string name="pause">-</string>
+    <string name="edit_book_title">edit book title</string>
+    <string name="edit_book_author">edit book author</string>
+    <string name="edit_book_description">edit book description</string>
+    <string name="edit_book_genre">edit book genre</string>
+    <string name="edit_book_date">edit book date</string>
+    <string name="new_book_title">new book title</string>
+    <string name="new_book_author">new book author</string>
+    <string name="new_book_description">new book description</string>
+    <string name="new_book_genre">new book genre</string>
+    <string name="new_book_date">new book date</string>
+    <string name="add_books_to_database">Add books to database</string>
+    <string name="status_image">status image</string>
 </resources>

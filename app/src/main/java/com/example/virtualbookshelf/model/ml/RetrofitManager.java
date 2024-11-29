@@ -141,7 +141,7 @@ public class RetrofitManager {
      * @param foundObject book
      * @return true if book is valid, otherwise false
      */
-    private boolean checkBookIsValid(FoundObject foundObject){
+    public boolean checkBookIsValid(FoundObject foundObject){
         LevenshteinDistance levenshtein = new LevenshteinDistance();
 
         //Check whether no garbage has been detected
@@ -207,7 +207,7 @@ public class RetrofitManager {
      * Method to remove duplicate books
      * @param foundBooks ArrayList of found books
      */
-    private void removeDuplicateBooks(ArrayList<FoundObject> foundBooks){
+    public void removeDuplicateBooks(ArrayList<FoundObject> foundBooks){
         Set<String> ids = new java.util.HashSet<>();
         for (int i = 0; i < foundBooks.size(); i++) {
             FoundObject foundObject = foundBooks.get(i);

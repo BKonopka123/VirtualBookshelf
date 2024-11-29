@@ -104,7 +104,7 @@ public class TesseractManager {
      * Checks if language data exists.
      * @param directory Directory with language data.
      */
-    private void checkIfLanguageDataExists(File directory) {
+    public void checkIfLanguageDataExists(File directory) {
         if(!directory.exists() && directory.mkdirs()){
             copyLanguageDataFiles();
         }
@@ -158,7 +158,7 @@ public class TesseractManager {
     /**
      * Initializes Tesseract.
      */
-    private void initializeTesseract() {
+    public void initializeTesseract() {
         tessBaseAPI = new TessBaseAPI();
         tessBaseAPI.init(dataPath, languageEng + "+" + languagePol);
         tessBaseAPI.setVariable("tessedit_char_whitelist", "AĄBCĆDEĘFGHIJKLŁMNŃOÓPQRSŚTUVWXYZŻŹaąbcćdeęfghijklłmnoópqrsśtuvwxyzżź ");
@@ -170,7 +170,7 @@ public class TesseractManager {
     /**
      * Closes Tesseract.
      */
-    private void closeTesseract() {
+    public void closeTesseract() {
         tessBaseAPI.recycle();
     }
 
@@ -219,7 +219,7 @@ public class TesseractManager {
     /**
      * Process image. Changes the image to gray scale and increases its contrast.
      */
-    private void processImage() {
+    public void processImage() {
         try {
             // Convert the image to gray scale
             Bitmap photo_GrayScale = Bitmap.createBitmap(photo.getWidth(), photo.getHeight(), Bitmap.Config.ARGB_8888);
@@ -259,17 +259,19 @@ public class TesseractManager {
      * @param foundText Found text.
      * @param foundObjectsList List of found objects.
      */
-    private void splitFoundText(String foundText, ArrayList<FoundObject> foundObjectsList) {
+    public void splitFoundText(String foundText, ArrayList<FoundObject> foundObjectsList) {
         try {
             StringBuilder foundLine = new StringBuilder();
             for (int i = 0; i < foundText.length(); i++) {
                 char currentChar = foundText.charAt(i);
                 if (currentChar == '\n' || i == foundText.length() - 1) {
+                    if (i == foundText.length() - 1) {
+                        foundLine.append(currentChar);
+                    }
                     String processedLine = checkFoundText(foundLine.toString());
                     if (!processedLine.isEmpty()) {
                         FoundObject foundObject = new FoundObject(miniature, processedLine, null, null, null, null, null, null, null, false);
                         foundObjectsList.add(foundObject);
-//                    Log.d("TesseractManager", "Found text: " + foundLine.toString());
                     }
                     foundLine.setLength(0);
                     continue;
@@ -287,7 +289,7 @@ public class TesseractManager {
      * @param foundLine Line with found text.
      * @return Processed line with found text.
      */
-    private String checkFoundText(String foundLine) {
+    public String checkFoundText(String foundLine) {
         try {
             ArrayList<String> foundWordsList = new ArrayList<>();
             StringBuilder foundWord = new StringBuilder();
@@ -340,7 +342,7 @@ public class TesseractManager {
     /**
      * Creates miniature of the image.
      */
-    private void createMiniature() {
+    public void createMiniature() {
         try {
             int width = photo.getWidth();
             int height = photo.getHeight();
@@ -368,5 +370,29 @@ public class TesseractManager {
         Matrix matrix = new Matrix();
         matrix.postRotate(degree);
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
+
+    public Bitmap getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Bitmap bitmap) {
+        this.photo = bitmap;
+    }
+
+    public byte[] getMiniature() {
+        return miniature;
+    }
+
+    public TessBaseAPI getTessBaseAPI() {
+        return tessBaseAPI;
+    }
+
+    public void setTessBaseAPI(TessBaseAPI tessBaseAPI) {
+        this.tessBaseAPI = tessBaseAPI;
+    }
+
+    public String getDataPath() {
+        return dataPath;
     }
 }

@@ -25,7 +25,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.virtualbookshelf.R;
 import com.example.virtualbookshelf.model.db.DBManager;
-import com.example.virtualbookshelf.viewmodel.MainViewModel;
+import com.example.virtualbookshelf.view.Book.BookshelfActivity;
+import com.example.virtualbookshelf.view.Main.MainProcessImageActivity;
+import com.example.virtualbookshelf.view.User.UserActivity;
+import com.example.virtualbookshelf.viewmodel.Main.MainViewModel;
 
 import java.io.File;
 import java.io.IOException;

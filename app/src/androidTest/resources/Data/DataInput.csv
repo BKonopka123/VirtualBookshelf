@@ -1,0 +1,25 @@
+Image_name,Test case Description,Books number,Expected Titles,Expected Authors
+1_1_1_1_1_ex1.png,One book - sideways - lying down - good text position - author and title in one row,1,I nie było już nikogo,Agatha Christie
+1_1_1_1_1_ex2.png,One book - sideways - lying down - good text position - author and title in one row,1,I nie było już nikogo,Agatha Christie
+1_1_1_1_1_ex3.png,One book - sideways - lying down - good text position - author and title in one row,1,Duma i Uprzedzenie,Jane Austen
+1_1_1_1_1_ex4.png,One book - sideways - lying down - good text position - author and title in one row,1,Symfonia C++ standard,Jerzy Grębosz
+1_1_1_1_2_ex1.png,One book - sideways - lying down - upside down - author and title in different rows,1,Chłopki. Opowieść o naszych babkach,Joanna Kuciel-Frydryszak
+1_1_1_2_1_ex1.png,One book - sideways - lying down - upside down - author and title in one row,1,Duma i Uprzedzenie,Jane Austen
+1_1_1_2_2_ex2.png,One book - sideways - lying down - upside down - author and title in different rows,1,Chłopki. Opowieść o naszych babkach,Joanna Kuciel-Frydryszak
+1_1_2_1_1_ex1.png,One book - sideways - standing - good text position - author and title in one row,1,Dizajn miejsc codziennych,Aleksandra Koperda
+1_1_2_1_2_ex1.png,One book - sideways - standing - good text position - author and title in different rows,1,Chłopki. Opowieść o naszych babkach,Joanna Kuciel-Frydryszak
+1_2_1_1_ex1.png,Two books - sideways - lying down - both texts in good position,2,I nie było już nikogo;Dizajn miejsc codziennych,Agatha Christie;Aleksandra Koperda
+1_2_1_1_ex2.png,Two books - sideways - lying down - both texts in good position,2,I nie było już nikogo;Dizajn miejsc codziennych,Agatha Christie;Aleksandra Koperda
+1_2_1_1_ex3.png,Two books - sideways - lying down - both texts in good position,2,Dizajn miejsc codziennych;Duma i Uprzedzenie,Aleksandra Koperda;Jane Austen
+1_2_1_1_ex4.png,Two books - sideways - lying down - both texts in good position,2,I nie było już nikogo;Duma i Uprzedzenie,Agatha Christie;Jane Austen
+1_2_1_4_ex1.png,Two books - sideways - lying down - different positions,2,Chłopki. Opowieść o naszych babkach;Dizajn miejsc codziennych,Joanna Kuciel-Frydryszak;Aleksandra Koperda
+1_2_2_1_ex1.png,Two books - sideways - standing - good text postion,2,Chłopki. Opowieść o naszych babkach;Duma i Uprzedzenie,Joanna Kuciel-Frydryszak;Jane Austen
+1_3_2_1_ex1.png,Three books - sideways - standing - good text position,3,Chłopki. Opowieść o naszych babkach;Duma i Uprzedzenie;I nie było już nikogo,Joanna Kuciel-Frydryszak;Jane Austen;Agatha Christie
+1_3_2_3_ex1.png,Three books - sideways - standing - different positions,3,Chłopki. Opowieść o naszych babkach;Duma i Uprzedzenie;Symfonia C++ standard,Joanna Kuciel-Frydryszak;Jane Austen;Jerzy Grębosz
+1_5_ex1.png,Many books - sideways - standing,4,Chłopki. Opowieść o naszych babkach;Duma i Uprzedzenie;Symfonia C++ standard;Dizajn miejsc codziennych,Joanna Kuciel-Frydryszak;Jane Austen;Jerzy Grębosz;Aleksandra Koperda
+2_1_1_ex1.png,One book - front,1,Chłopki. Opowieść o naszych babkach,Joanna Kuciel-Frydryszak
+2_1_1_ex2.png,One book - front,1,Dziwniejsza historia,Remigiusz Ryziński
+2_1_1_ex3.png,One book - front,1,I nie było już nikogo,Agatha Christie
+2_1_1_ex4.png,One book - front,1,Zniewolony umysł,Czesław Miłosz
+2_1_1_ex5.png,One book - front,1,Sklepy cynamonowe,Bruno Schulz
+2_1_1_ex6.png,One book - front,1,Dzuma,Albert Camus

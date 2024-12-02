@@ -5,7 +5,7 @@
     android:id="@+id/bookshelf"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.BookshelfActivity">
+    tools:context=".view.Book.BookshelfActivity">
 
     <!-- Upper part -->
     <RelativeLayout

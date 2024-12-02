@@ -29,13 +29,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.BookshelfActivity" />
-        <activity android:name=".view.BookshelfDetailActivity"/>
-        <activity android:name=".view.UserActivity" />
-<!--        <activity android:name=".view.MainPhotoHistoryActivity" />-->
-        <activity android:name=".view.MainProcessImageActivity"/>
-        <activity android:name=".view.MainFoundBooksActivity"/>
-        <activity android:name=".view.BookFoundDetailActivity"/>
+        <activity android:name=".view.Book.BookshelfActivity" />
+        <activity android:name=".view.Book.BookshelfDetailActivity"/>
+        <activity android:name=".view.User.UserActivity" />
+        <activity android:name=".view.Main.MainProcessImageActivity"/>
+        <activity android:name=".view.Main.MainFoundBooksActivity"/>
+        <activity android:name=".view.Main.BookFoundDetailActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

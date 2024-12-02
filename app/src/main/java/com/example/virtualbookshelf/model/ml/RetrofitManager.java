@@ -58,8 +58,9 @@ public class RetrofitManager {
         for (int i = 0; i < foundTitles.size(); i++) {
             if(i <= 20)
                 callApi(foundTitles.get(i).getFoundText(), i, callback, completedRequests);
-            else
+            else {
                 break;
+            }
         }
     }
 

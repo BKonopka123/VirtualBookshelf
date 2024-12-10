@@ -56,11 +56,7 @@ public class RetrofitManager {
         foundBooks.clear();
         AtomicInteger completedRequests = new AtomicInteger(0);
         for (int i = 0; i < foundTitles.size(); i++) {
-            if(i <= 20)
-                callApi(foundTitles.get(i).getFoundText(), i, callback, completedRequests);
-            else {
-                break;
-            }
+            callApi(foundTitles.get(i).getFoundText(), i, callback, completedRequests);
         }
     }
 
@@ -115,7 +111,7 @@ public class RetrofitManager {
                 }
 
                 // Check if all requests are completed
-                if (completedRequests.incrementAndGet() == foundTitles.size()) {
+                if (completedRequests.incrementAndGet() == foundTitles.size() || completedRequests.get() >= 15) {
                     removeDuplicateBooks(foundBooks);
                     Log.d("RetrofitManager", "Found books: " + foundBooks.size());
                     callback.onResponse(fakeCall, Response.success(foundBooks));

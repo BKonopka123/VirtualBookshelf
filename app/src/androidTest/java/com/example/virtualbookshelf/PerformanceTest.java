@@ -174,7 +174,17 @@ public class PerformanceTest {
                     }
                 });
 
+                Log.d("PerformanceTest", "Waiting");
                 latchTestRunning.await();
+                Log.d("PerformanceTest", "Waiting finished");
+                Log.d("PerformanceTest", "Sleep");
+                Thread.sleep(5000);
+                Log.d("PerformanceTest", "Sleep finished");
+                Log.d("PerformanceTest", "Counter: " + counter.get());
+                Log.d("PerformanceTest", "passed global: " + passedGlobal);
+                Log.d("PerformanceTest", "garbage global: " + garbageGlobal);
+                Log.d("PerformanceTest", "run test: " + runTest);
+                Log.d("PerformanceTest", "File name:" + inputDataLines.get(counter.get())[0]);
             }
 
             if (!testSuccess.get()) {

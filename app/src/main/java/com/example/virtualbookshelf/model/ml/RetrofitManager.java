@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.virtualbookshelf.BuildConfig;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -24,7 +26,7 @@ public class RetrofitManager {
     /**
      * API key for the Google Books API
      */
-    private static final String API_KEY = "AIzaSyAsrcc0VpF-trPAOJDUEbsFMtarPQOGSHE";
+    private static final String API_KEY = BuildConfig.API_KEY;
     /**
      * GoogleBooksApi object
      */

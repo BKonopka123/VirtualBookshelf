@@ -42,7 +42,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 @RunWith(AndroidJUnit4.class)
-public class PerformanceTest {
+public class BookFindTest {
 
     private String dataPath;
     private Context context;
@@ -93,18 +93,18 @@ public class PerformanceTest {
         if (outputCsvFile.exists()) {
             boolean deleted = outputCsvFile.delete();
             if (!deleted) {
-                Log.e("PerformanceTest", "Error deleting output file");
+                Log.e("BookFindTest", "Error deleting output file");
                 fail();
             }
         }
         this.outputCsvFileWriter = new FileWriter(outputCsvFile);
         this.outputCsvFileWriter.append("Image_name,Test case Description,Books number,Expected Titles,Expected Authors,Percentage,Garbage\n");
-        Log.d("PerformanceTest", "Output file path: " + outputCsvFile.getAbsolutePath());
+        Log.d("BookFindTest", "Output file path: " + outputCsvFile.getAbsolutePath());
         assertNotNull(outputCsvFile);
     }
 
     @Test
-    public void testPerformance() throws IOException, InterruptedException {
+    public void testBookFind() throws IOException, InterruptedException {
         for(int i = 0; i < inputDataLines.size(); i++) {
             this.latchTestRunning = new CountDownLatch(1);
 
@@ -125,27 +125,27 @@ public class PerformanceTest {
                     @Override
                     public void onResponse(@NonNull Call<ArrayList<FoundObject>> call, @NonNull Response<ArrayList<FoundObject>> response) {
                         if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
-                            Log.d("PerformanceTest", "Found books: " + response.body().size() + " - saving response to csv file");
+                            Log.d("BookFindTest", "Found books: " + response.body().size() + " - saving response to csv file");
                             try {
                                 checkOutputAndSaveData(response.body(), inputDataLines.get(counter.get()));
                             } catch (IOException e) {
-                                Log.e("PerformanceTest", "Error saving response to csv file");
+                                Log.e("BookFindTest", "Error saving response to csv file");
                                 testSuccess.set(false);
                             }
                             if (counter.incrementAndGet() == inputDataLines.size()) {
                                 try {
                                     saveFileEnd();
                                 } catch (IOException e) {
-                                    Log.e("PerformanceTest", "Error saving response to csv file");
+                                    Log.e("BookFindTest", "Error saving response to csv file");
                                     testSuccess.set(false);
                                 }
                             }
                         } else {
-                            Log.e("PerformanceTest", "Error calling API - no response - saving error to csv file");
+                            Log.e("BookFindTest", "Error calling API - no response - saving error to csv file");
                             try {
                                 saveErrorToCSV(inputDataLines.get(counter.get()));
                             } catch (IOException e) {
-                                Log.e("PerformanceTest", "Error saving response to csv file");
+                                Log.e("BookFindTest", "Error saving response to csv file");
                                 testSuccess.set(false);
                             }
                         }
@@ -154,19 +154,19 @@ public class PerformanceTest {
 
                     @Override
                     public void onFailure(@NonNull Call<ArrayList<FoundObject>> call, @NonNull Throwable t) {
-                        Log.e("PerformanceTest", "Error calling API - onFailure - saving error to csv file");
+                        Log.e("BookFindTest", "Error calling API - onFailure - saving error to csv file");
                         try {
                             saveErrorToCSV(inputDataLines.get(counter.get()));
                         } catch (IOException e) {
-                            Log.e("PerformanceTest", "Error saving response to csv file");
+                            Log.e("BookFindTest", "Error saving response to csv file");
                             testSuccess.set(false);
                         }
                         if (Objects.equals(t.getMessage(), "CODE_429")) {
-                            Log.e("PerformanceTest", "Error calling API - too many requests - ending Test");
+                            Log.e("BookFindTest", "Error calling API - too many requests - ending Test");
                             try {
                                 saveFileEnd();
                             } catch (IOException e) {
-                                Log.e("PerformanceTest", "Error saving response to csv file");
+                                Log.e("BookFindTest", "Error saving response to csv file");
                                 testSuccess.set(false);
                             }
                         }
@@ -174,17 +174,17 @@ public class PerformanceTest {
                     }
                 });
 
-                Log.d("PerformanceTest", "Waiting");
+                Log.d("BookFindTest", "Waiting");
                 latchTestRunning.await();
-                Log.d("PerformanceTest", "Waiting finished");
-                Log.d("PerformanceTest", "Sleep");
+                Log.d("BookFindTest", "Waiting finished");
+                Log.d("BookFindTest", "Sleep");
                 Thread.sleep(5000);
-                Log.d("PerformanceTest", "Sleep finished");
-                Log.d("PerformanceTest", "Counter: " + counter.get());
-                Log.d("PerformanceTest", "passed global: " + passedGlobal);
-                Log.d("PerformanceTest", "garbage global: " + garbageGlobal);
-                Log.d("PerformanceTest", "run test: " + runTest);
-                Log.d("PerformanceTest", "File name:" + inputDataLines.get(counter.get())[0]);
+                Log.d("BookFindTest", "Sleep finished");
+                Log.d("BookFindTest", "Counter: " + counter.get());
+                Log.d("BookFindTest", "passed global: " + passedGlobal);
+                Log.d("BookFindTest", "garbage global: " + garbageGlobal);
+                Log.d("BookFindTest", "run test: " + runTest);
+                Log.d("BookFindTest", "File name:" + inputDataLines.get(counter.get())[0]);
             }
 
             if (!testSuccess.get()) {
@@ -197,7 +197,7 @@ public class PerformanceTest {
     }
 
     private Bitmap loadPhoto(String photoName) throws IOException {
-        Log.e("PerformanceTest", "Loading photo: " + photoName);
+        Log.e("BookFindTest", "Loading photo: " + photoName);
         InputStream inputStream = Objects.requireNonNull(getClass().getClassLoader()).getResourceAsStream("Data/Images/" + photoName);
         assertNotNull(inputStream);
         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
@@ -238,7 +238,7 @@ public class PerformanceTest {
             try {
                 saveFileEnd();
             } catch (IOException e) {
-                Log.e("PerformanceTest", "Error saving response to csv file");
+                Log.e("BookFindTest", "Error saving response to csv file");
                 fail();
             }
         }
@@ -262,7 +262,7 @@ public class PerformanceTest {
             try {
                 saveFileEnd();
             } catch (IOException e) {
-                Log.e("PerformanceTest", "Error saving response to csv file");
+                Log.e("BookFindTest", "Error saving response to csv file");
                 fail();
             }
         }
